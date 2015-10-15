@@ -4,7 +4,7 @@ namespace Assets.Scripts
 {
     public class BulletColliderController : MonoBehaviour {
 
-        void OnTriggerStay(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             Debug.Log("Entered");
             switch (other.tag)
