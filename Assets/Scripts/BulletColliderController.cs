@@ -30,6 +30,7 @@ namespace Assets.Scripts
         IEnumerator BulletHit()
         {
             Explosion.Play();
+            GetComponentInChildren<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(1);
             gameObject.SetActive(false);
         }
