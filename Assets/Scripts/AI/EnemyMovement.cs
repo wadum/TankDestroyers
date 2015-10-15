@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Variables;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets.Scripts.AI
     {
 
         public int MsBetweenShots;
-        public List<Transform> Waypoints;
+        public int NumberOfWaypoints;
 
         [Space(10)]
         [Header("Tank Shot")]
@@ -23,21 +24,20 @@ namespace Assets.Scripts.AI
 
         void Start ()
         {
+            InitiateSoundSettings();
+
+            var allWaypoints = GameObject.FindGameObjectsWithTag(Constants.Tags.Waypoint).ToList();
+            var selectedWapoints = allWaypoints.Select(go => go.transform)
+                .OrderBy(t => (int)Random.value * 100)
+                .Take(NumberOfWaypoints)
+                .ToList();
+
             _nav = GetComponent<NavMeshAgent>();
-
-            _shotSource = gameObject.AddComponent<AudioSource>();
-            _shotSource.clip = TankShotSound;
-            _shotSource.loop = false;
-            _shotSource.playOnAwake = false;
-            _shotSource.volume = TankShotVolume;
-            _shotSource.minDistance = 5;
-            _shotSource.maxDistance = 20;
-            _shotSource.rolloffMode = AudioRolloffMode.Linear;
-            _shotSource.spatialBlend = 1;
-
             _chaseState = new ChaseState(_nav, MsBetweenShots, _shotSource);
-            _patrolState = new PatrolState(_nav, Waypoints);
+            _patrolState = new PatrolState(_nav, selectedWapoints);
             _currentState = _patrolState;
+
+            GameObject.FindGameObjectsWithTag("Waypoint");
         }
 
         void Update()
@@ -53,6 +53,19 @@ namespace Assets.Scripts.AI
             
             _chaseState.Target = other.gameObject.transform;
             _currentState = _chaseState;
+        }
+
+        void InitiateSoundSettings()
+        {
+            _shotSource = gameObject.AddComponent<AudioSource>();
+            _shotSource.clip = TankShotSound;
+            _shotSource.loop = false;
+            _shotSource.playOnAwake = false;
+            _shotSource.volume = TankShotVolume;
+            _shotSource.minDistance = 5;
+            _shotSource.maxDistance = 20;
+            _shotSource.rolloffMode = AudioRolloffMode.Linear;
+            _shotSource.spatialBlend = 1;
         }
     }
 }

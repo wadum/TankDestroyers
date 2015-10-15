@@ -310,30 +310,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11452894, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: Waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 456627689}
-    - target: {fileID: 11452894, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: Waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 2059739428}
-    - target: {fileID: 11452894, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: Waypoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1832484860}
-    - target: {fileID: 11452894, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: Waypoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1215078941}
-    - target: {fileID: 11452894, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: Waypoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 1444343996}
-    - target: {fileID: 5407968, guid: eb298c43e8453bc44bd989705919620c, type: 2}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb298c43e8453bc44bd989705919620c, type: 2}
   m_IsPrefabParent: 0
@@ -579,6 +555,10 @@ Prefab:
     - target: {fileID: 489056, guid: b10e0adbfe4cc06449d8b2061899d3d3, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 111242, guid: b10e0adbfe4cc06449d8b2061899d3d3, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b10e0adbfe4cc06449d8b2061899d3d3, type: 2}
