@@ -16,9 +16,16 @@ namespace Assets.Scripts
         public AudioClip TankShotSound;
         public float TankShotVolume = 0.3f;
 
+        [Space(10)]
+        [Header("Tank Shot")]
+        public GameObject MinePrefab;
+        public int MineStartAmount = 3;
+
+
         private Rigidbody _rb;
         private AudioSource _shotSource;
         private int _health;
+        private int _mineAmount;
 
         void Start()
         {
@@ -33,6 +40,7 @@ namespace Assets.Scripts
             _shotSource.rolloffMode = AudioRolloffMode.Linear;
             _shotSource.spatialBlend = 1;
             _health = Health;
+            _mineAmount = MineStartAmount;
         }
 
         // Update is called once per frame
@@ -50,6 +58,10 @@ namespace Assets.Scripts
                 GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>().FireBullet(transform.position, transform.forward);
                 _shotSource.Play();
             }
+            if (Input.GetKeyDown("left ctrl"))
+            {
+                Instantiate(MinePrefab, transform.position, transform.rotation);
+            }
         }
 
         public void HitByBullet()
@@ -57,6 +69,11 @@ namespace Assets.Scripts
             _health--;
             if (_health < 1)
                 Application.LoadLevel(Application.loadedLevel);
+        }
+
+        public void AddMines(int amount)
+        {
+            _mineAmount += amount;
         }
     }
 }
