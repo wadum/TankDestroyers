@@ -25,6 +25,13 @@ namespace Assets.Scripts
                 _rb.AddForce(transform.forward * MovementMagnitude);
             if (Input.GetKey("s"))
                 _rb.AddForce(transform.forward * -MovementMagnitude);
+            if (Input.GetKeyDown("space"))
+                GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>().FireBullet(transform.position, transform.forward);
+        }
+
+        public void HitByBullet()
+        {
+            //TODO Not Implemented
         }
     }
 }
