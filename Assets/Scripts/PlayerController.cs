@@ -38,9 +38,9 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update () {
             if (Input.GetKey("a"))
-                _rb.AddTorque(new Vector3(0,1*RotationMagnitude,0));
+                _rb.AddTorque(new Vector3(0, -1*RotationMagnitude,0));
             if (Input.GetKey("d"))
-                _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
+                _rb.AddTorque(new Vector3(0, 1*RotationMagnitude, 0));
             if (Input.GetKey("w"))
                 _rb.AddForce(transform.forward * MovementMagnitude);
             if (Input.GetKey("s"))
