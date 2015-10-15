@@ -6,6 +6,8 @@ namespace Assets.Scripts.AI
 {
     public class EnemyMovement : MonoBehaviour
     {
+
+        public int MsBetweenShots;
         public List<Transform> Waypoints;
 
         private NavMeshAgent _nav;
@@ -16,7 +18,7 @@ namespace Assets.Scripts.AI
         void Start ()
         {
             _nav = GetComponent<NavMeshAgent>();
-            _chaseState = new ChaseState(_nav);
+            _chaseState = new ChaseState(_nav, MsBetweenShots);
             _patrolState = new PatrolState(_nav, Waypoints);
         }
 
