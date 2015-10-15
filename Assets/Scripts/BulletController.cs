@@ -50,7 +50,7 @@ namespace Assets.Scripts
 
         private IEnumerator MoveBullet(GameObject bullet, Vector3 direction)
         {
-            while (bullet.activeSelf)
+            while (bullet.activeSelf && !bullet.GetComponentInChildren<ParticleSystem>().isPlaying)
             {
                 bullet.transform.Translate(direction * BulletSpeed);
                 yield return null;

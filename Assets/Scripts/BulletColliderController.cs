@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class BulletColliderController : MonoBehaviour {
+    public class BulletColliderController : MonoBehaviour
+    {
+
+        public ParticleSystem Explosion;
 
         void OnTriggerEnter(Collider other)
         {
@@ -11,15 +16,22 @@ namespace Assets.Scripts
             {
                 case "Player":
                     other.GetComponent<PlayerController>().HitByBullet();
-                    gameObject.SetActive(false);
+                    StartCoroutine(BulletHit());
                     break;
                 case "Enemy":
-                    gameObject.SetActive(false);
+                    StartCoroutine(BulletHit());
                     break;
                 case "Wall":
-                    gameObject.SetActive(false);
+                    StartCoroutine(BulletHit());
                     break;
             }
+        }
+
+        IEnumerator BulletHit()
+        {
+            Explosion.Play();
+            yield return new WaitForSeconds(1);
+            gameObject.SetActive(false);
         }
     }
 }
