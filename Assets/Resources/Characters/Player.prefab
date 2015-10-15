@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .891510963, y: .223920822, z: 15.1700001}
+  m_LocalPosition: {x: 14.8821163, y: .330000013, z: -6.98779106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 430820}
@@ -241,6 +241,8 @@ MonoBehaviour:
   MovementMagnitude: 50
   TankShotSound: {fileID: 8300000, guid: 37f8a903f3347484d8d2596ae2f304ca, type: 3}
   TankShotVolume: .300000012
+  MinePrefab: {fileID: 119916, guid: 3a73e26f88957b343af0490c9403c8f0, type: 2}
+  MineStartAmount: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
