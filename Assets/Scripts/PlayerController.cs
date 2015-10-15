@@ -5,6 +5,8 @@ namespace Assets.Scripts
     public class PlayerController : MonoBehaviour
     {
 
+        public int Health = 3;
+
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
         public float MovementMagnitude = 0.1f;
@@ -16,6 +18,7 @@ namespace Assets.Scripts
 
         private Rigidbody _rb;
         private AudioSource _shotSource;
+        private int _health;
 
         void Start()
         {
@@ -29,6 +32,7 @@ namespace Assets.Scripts
             _shotSource.maxDistance = 20;
             _shotSource.rolloffMode = AudioRolloffMode.Linear;
             _shotSource.spatialBlend = 1;
+            _health = Health;
         }
 
         // Update is called once per frame
@@ -50,7 +54,9 @@ namespace Assets.Scripts
 
         public void HitByBullet()
         {
-            //TODO Not Implemented
+            _health--;
+            if (_health < 1)
+                Application.LoadLevel(Application.loadedLevel);
         }
     }
 }
