@@ -13,9 +13,11 @@ namespace Assets.Scripts.AI
         private readonly BulletController _bc;
         private readonly int _msBetweenShots;
         private float _nextTimeShotAllowed = 0;
+        private AudioSource _shotSource;
 
-        public ChaseState(NavMeshAgent nav, int msBetweenShots)
+        public ChaseState(NavMeshAgent nav, int msBetweenShots, AudioSource shotSource)
         {
+            _shotSource = shotSource;
             _nav = nav;
             _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>();
             _msBetweenShots = msBetweenShots;
@@ -44,6 +46,7 @@ namespace Assets.Scripts.AI
 
             _bc.FireBullet(_nav.transform.position, direction);
             _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
+            _shotSource.Play();
         }
     }
 }
