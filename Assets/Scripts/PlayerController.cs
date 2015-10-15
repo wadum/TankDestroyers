@@ -60,7 +60,9 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("left ctrl"))
             {
-                Instantiate(MinePrefab, transform.position, transform.rotation);
+                var mine = (GameObject)Instantiate(MinePrefab);
+                mine.transform.position = transform.position;
+                mine.transform.Translate(transform.forward*-3);
             }
         }
 
