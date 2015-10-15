@@ -330,6 +330,10 @@ Prefab:
       propertyPath: Waypoints.Array.data[4]
       value: 
       objectReference: {fileID: 1444343996}
+    - target: {fileID: 5407968, guid: eb298c43e8453bc44bd989705919620c, type: 2}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb298c43e8453bc44bd989705919620c, type: 2}
   m_IsPrefabParent: 0

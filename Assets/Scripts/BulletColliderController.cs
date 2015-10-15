@@ -32,7 +32,8 @@ namespace Assets.Scripts
             Explosion.Play();
             GetComponentInChildren<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(1);
-            gameObject.SetActive(false);
+            GetComponentInChildren<MeshRenderer>().enabled = true;
+            gameObject.SetActive(false);  
         }
     }
 }

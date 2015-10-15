@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - GameScripts
   - Mine
+  - Waypoint
   layers:
   - Default
   - TransparentFX
