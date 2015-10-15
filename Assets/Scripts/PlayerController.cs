@@ -18,7 +18,7 @@ namespace Assets.Scripts
 
         [Space(10)]
         [Header("Tank Shot")]
-        public GameObject MineWagon;
+        public GameObject MinePrefab;
         public int MineStartAmount = 3;
 
 
@@ -60,8 +60,7 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("left ctrl"))
             {
-                GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>().FireBullet(transform.position, transform.forward);
-                _shotSource.Play();
+                Instantiate(MinePrefab, transform.position, transform.rotation);
             }
         }
 
