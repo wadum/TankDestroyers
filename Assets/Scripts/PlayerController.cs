@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -26,6 +28,7 @@ namespace Assets.Scripts
         private AudioSource _shotSource;
         private int _health;
         private int _mineAmount;
+        private bool _disableControls = false;
 
         void Start()
         {
@@ -44,7 +47,9 @@ namespace Assets.Scripts
         }
 
         // Update is called once per frame
-        void Update () {
+        void Update ()
+        {
+            if (_disableControls) return;
             if (Input.GetKey("a"))
                 _rb.AddTorque(new Vector3(0, -1*RotationMagnitude,0));
             if (Input.GetKey("d"))
@@ -60,22 +65,37 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("left ctrl"))
             {
+                if (_mineAmount < 1)
+                    return;
                 var mine = (GameObject)Instantiate(MinePrefab);
                 mine.transform.position = transform.position;
                 mine.transform.Translate(transform.forward*-3.5f);
+                _mineAmount--;
             }
         }
 
         public void HitByBullet()
         {
-            _health--;
-            if (_health < 1)
-                Application.LoadLevel(Application.loadedLevel);
+            StartCoroutine(TakeDamage(1));
+        }
+
+        public void HitByMine()
+        {
+            StartCoroutine(TakeDamage(1));
         }
 
         public void AddMines(int amount)
         {
             _mineAmount += amount;
+        }
+
+        private IEnumerator TakeDamage(int amount)
+        {
+            _health -= amount;
+            if (_health >= 1) yield break;
+            _disableControls = true;
+            yield return new WaitForSeconds(3);
+            Application.LoadLevel(Application.loadedLevel);
         }
     }
 }
