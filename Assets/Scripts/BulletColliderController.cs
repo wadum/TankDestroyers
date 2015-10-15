@@ -11,7 +11,6 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Entered");
             switch (other.tag)
             {
                 case "Player":

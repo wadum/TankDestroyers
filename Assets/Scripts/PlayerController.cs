@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Weapons;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -19,7 +20,7 @@ namespace Assets.Scripts
         public float TankShotVolume = 0.3f;
 
         [Space(10)]
-        [Header("Tank Shot")]
+        [Header("Mine Settings")]
         public GameObject MinePrefab;
         public int MineStartAmount = 3;
 
@@ -29,6 +30,8 @@ namespace Assets.Scripts
         private int _health;
         private int _mineAmount;
         private bool _disableControls = false;
+
+        public IWeaponController Weapon;
 
         void Start()
         {
@@ -44,6 +47,8 @@ namespace Assets.Scripts
             _shotSource.spatialBlend = 1;
             _health = Health;
             _mineAmount = MineStartAmount;
+            if (Weapon == null)
+                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>();
         }
 
         // Update is called once per frame
@@ -60,7 +65,7 @@ namespace Assets.Scripts
                 _rb.AddForce(transform.forward * -MovementMagnitude);
             if (Input.GetKeyDown("space"))
             {
-                GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>().FireBullet(transform.position, transform.forward);
+                Weapon.FireWeapon(transform.position, transform.forward);
                 _shotSource.Play();
             }
             if (Input.GetKeyDown("left ctrl"))
@@ -87,6 +92,11 @@ namespace Assets.Scripts
         public void AddMines(int amount)
         {
             _mineAmount += amount;
+        }
+
+        public void ChangeWeapon(IWeaponController newWeapon)
+        {
+            Weapon = newWeapon;
         }
 
         private IEnumerator TakeDamage(int amount)

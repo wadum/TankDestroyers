@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Variables;
+using Assets.Scripts.Weapons;
 using UnityEngine;
 
 namespace Assets.Scripts.AI
@@ -10,10 +11,10 @@ namespace Assets.Scripts.AI
         public Transform Target { get; set; }
 
         private readonly NavMeshAgent _nav;
-        private readonly BulletController _bc;
+        private readonly IWeaponController _bc;
         private readonly int _msBetweenShots;
         private float _nextTimeShotAllowed = 0;
-        private AudioSource _shotSource;
+        private readonly AudioSource _shotSource;
 
         public ChaseState(NavMeshAgent nav, int msBetweenShots, AudioSource shotSource)
         {
@@ -44,7 +45,7 @@ namespace Assets.Scripts.AI
             if(Time.time <= _nextTimeShotAllowed)
                 return;
 
-            _bc.FireBullet(_nav.transform.position, direction);
+            _bc.FireWeapon(_nav.transform.position, direction);
             _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
             _shotSource.Play();
         }

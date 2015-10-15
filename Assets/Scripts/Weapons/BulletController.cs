@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Weapons
 {
-    public class BulletController : MonoBehaviour
+    public class BulletController : MonoBehaviour, IWeaponController
     {
         public float BulletSpeed = 0.1f;    
         
@@ -38,7 +38,7 @@ namespace Assets.Scripts
             return b;
         }
 
-        public void FireBullet(Vector3 origin, Vector3 direction)
+        public void FireWeapon(Vector3 origin, Vector3 direction)
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
