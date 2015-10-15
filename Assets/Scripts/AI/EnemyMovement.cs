@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.AI;
 using Assets.Scripts.Variables;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.AI
 {
     public class EnemyMovement : MonoBehaviour
     {
-        public List<Transform> Waypoints; 
+        public List<Transform> Waypoints;
+
         private NavMeshAgent _nav;
         private ChaseState _chaseState;
         private PatrolState _patrolState;
         private IState _currentState;
 
-        // Use this for initialization
         void Start ()
         {
             _nav = GetComponent<NavMeshAgent>();
@@ -29,6 +28,9 @@ namespace Assets.Scripts
 
         void OnTriggerStay(Collider other)
         {
+            if(other.tag != Constants.Tags.Player)
+                return;
+            
             _chaseState.Target = other.gameObject.transform;
             _currentState = _chaseState;
         }
