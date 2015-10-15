@@ -24,6 +24,7 @@ namespace Assets.Scripts.AI
         void Start ()
         {
             _nav = GetComponent<NavMeshAgent>();
+
             _shotSource = gameObject.AddComponent<AudioSource>();
             _shotSource.clip = TankShotSound;
             _shotSource.loop = false;
@@ -33,8 +34,10 @@ namespace Assets.Scripts.AI
             _shotSource.maxDistance = 20;
             _shotSource.rolloffMode = AudioRolloffMode.Linear;
             _shotSource.spatialBlend = 1;
+
             _chaseState = new ChaseState(_nav, MsBetweenShots, _shotSource);
             _patrolState = new PatrolState(_nav, Waypoints);
+            _currentState = _patrolState;
         }
 
         void Update()
