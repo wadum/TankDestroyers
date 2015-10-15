@@ -65,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -84,9 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 23800000, guid: 4ec1b38ef877d1a468851c7a70149c70, type: 2}
---- !u!127 &5
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!1001 &394916642
 Prefab:
   m_ObjectHideFlags: 0
@@ -355,6 +353,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0233d6e763ef39040b48c6e474abdaab, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1039746698 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 114050, guid: 0233d6e763ef39040b48c6e474abdaab, type: 2}
+  m_PrefabInternal: {fileID: 969803904}
+--- !u!114 &1039746699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039746698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f9f6dd7504f1e4e9443e2e85751d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MissileSpeed: .5
 --- !u!1001 &1097712048
 Prefab:
   m_ObjectHideFlags: 0

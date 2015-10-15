@@ -9,6 +9,7 @@ TagManager:
   - GameScripts
   - Mine
   - Waypoint
+  - MissileBody
   layers:
   - Default
   - TransparentFX

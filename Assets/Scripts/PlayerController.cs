@@ -48,7 +48,7 @@ namespace Assets.Scripts
             _health = Health;
             _mineAmount = MineStartAmount;
             if (Weapon == null)
-                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>();
+                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileController>();
         }
 
         // Update is called once per frame
