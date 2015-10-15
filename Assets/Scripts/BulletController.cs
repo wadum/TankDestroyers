@@ -43,7 +43,7 @@ namespace Assets.Scripts
             var bullet = GetBullet();
             bullet.transform.position = origin;
            // bullet.transform.Rotate(Quaternion.FromToRotation(bullet.transform.forward, direction).eulerAngles);
-            bullet.transform.Translate(direction * 2);
+            bullet.transform.Translate(direction * 3);
             
             StartCoroutine(MoveBullet(bullet, direction));
         }
