@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.AI
@@ -17,14 +18,19 @@ namespace Assets.Scripts.AI
 
         public void ExecuteState()
         {
+            // Makes the enenmy stand still, if no waypoints assinged
+            if(!_waypoints.Any())
+                return;
+
+            // Change target, if waypoint is reached
             if (IsWaypointReashed())
                 _currentWaypoint = ++_currentWaypoint % _waypoints.Count;
+            
             _nav.destination = _waypoints[_currentWaypoint].position;
         }
 
         private bool IsWaypointReashed()
         {
-            // Check if we've reached the destination
             if (!_nav.pathPending && _nav.remainingDistance <= _nav.stoppingDistance)
                 return !_nav.hasPath || _nav.velocity.sqrMagnitude < 0.2f;
             
