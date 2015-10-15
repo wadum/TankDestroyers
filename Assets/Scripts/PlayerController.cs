@@ -62,7 +62,7 @@ namespace Assets.Scripts
             {
                 var mine = (GameObject)Instantiate(MinePrefab);
                 mine.transform.position = transform.position;
-                mine.transform.Translate(transform.forward*-3);
+                mine.transform.Translate(transform.forward*-3.5f);
             }
         }
 
