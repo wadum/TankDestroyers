@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class BulletColliderController : MonoBehaviour
+    public class BulletController : MonoBehaviour
     {
 
         public ParticleSystem Explosion;
+        public AudioSource Shoot;
+
+        private bool _moving;
 
         void OnTriggerEnter(Collider other)
         {
@@ -28,11 +31,29 @@ namespace Assets.Scripts
 
         IEnumerator BulletHit()
         {
+            _moving = false;
             Explosion.Play();
             GetComponentInChildren<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(1);
             GetComponentInChildren<MeshRenderer>().enabled = true;
             gameObject.SetActive(false);  
         }
+
+        public void FireBullet(Vector3 direction, float bulletSpeed)
+        {
+            Shoot.Play();
+            StartCoroutine(MoveBullet(direction, bulletSpeed));
+        }
+
+        public IEnumerator MoveBullet(Vector3 direction, float bulletSpeed)
+        {
+            _moving = true;
+            while (_moving)
+            {
+                transform.Translate(direction * bulletSpeed);
+                yield return null;
+            }
+        }
+
     }
 }

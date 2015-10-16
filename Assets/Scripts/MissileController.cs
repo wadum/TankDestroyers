@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets.Scripts
 {
-    public class MissileColliderController : MonoBehaviour
+    public class MissileController : MonoBehaviour
     {
 
         public ParticleSystem Explosion;

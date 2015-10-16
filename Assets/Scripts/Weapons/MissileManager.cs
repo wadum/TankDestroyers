@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
-    public class MissileController : MonoBehaviour, IWeaponController {
+    public class MissileManager : MonoBehaviour, IWeaponController {
 
         public float MissileSpeed = 0.1f;
 
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Weapons
             missile.transform.Translate(direction * 3.5f);
             //missile.transform.localRotation = Quaternion.Euler(direction);
             missile.transform.GetChild(0).localRotation = Quaternion.LookRotation(direction, Vector3.up);
-            StartCoroutine(missile.GetComponent<MissileColliderController>().MoveMissile(direction, MissileSpeed));
+            StartCoroutine(missile.GetComponent<MissileController>().MoveMissile(direction, MissileSpeed));
         }
 
     }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Assets.Scripts.Weapons
 {
-    public class BulletController : MonoBehaviour, IWeaponController
+    public class BulletManager : MonoBehaviour, IWeaponController
     {
         public float BulletSpeed = 0.1f;    
         
@@ -45,16 +45,9 @@ namespace Assets.Scripts.Weapons
            // bullet.transform.Rotate(Quaternion.FromToRotation(bullet.transform.forward, direction).eulerAngles);
             bullet.transform.Translate(direction * 3);
             
-            StartCoroutine(MoveBullet(bullet, direction));
+            bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed);
         }
 
-        private IEnumerator MoveBullet(GameObject bullet, Vector3 direction)
-        {
-            while (bullet.activeSelf && !bullet.GetComponentInChildren<ParticleSystem>().isPlaying)
-            {
-                bullet.transform.Translate(direction * BulletSpeed);
-                yield return null;
-            }
-        }
+        
     }
 }

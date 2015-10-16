@@ -15,11 +15,6 @@ namespace Assets.Scripts
         public float MovementMagnitude = 0.1f;
 
         [Space(10)]
-        [Header("Tank Shot")]
-        public AudioClip TankShotSound;
-        public float TankShotVolume = 0.3f;
-
-        [Space(10)]
         [Header("Mine Settings")]
         public GameObject MinePrefab;
         public int MineStartAmount = 3;
@@ -36,19 +31,10 @@ namespace Assets.Scripts
         void Start()
         {
             _rb = gameObject.GetComponent<Rigidbody>();
-            _shotSource = gameObject.AddComponent<AudioSource>();
-            _shotSource.clip = TankShotSound;
-            _shotSource.loop = false;
-            _shotSource.playOnAwake = false;
-            _shotSource.volume = TankShotVolume;
-            _shotSource.minDistance = 5;
-            _shotSource.maxDistance = 20;
-            _shotSource.rolloffMode = AudioRolloffMode.Linear;
-            _shotSource.spatialBlend = 1;
             _health = Health;
             _mineAmount = MineStartAmount;
             if (Weapon == null)
-                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileController>();
+                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
 
         // Update is called once per frame
@@ -64,10 +50,7 @@ namespace Assets.Scripts
             if (Input.GetKey("s"))
                 _rb.AddForce(transform.forward * -MovementMagnitude);
             if (Input.GetKeyDown("space"))
-            {
                 Weapon.FireWeapon(transform.position, transform.forward);
-                _shotSource.Play();
-            }
             if (Input.GetKeyDown("left ctrl"))
             {
                 if (_mineAmount < 1)

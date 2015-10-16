@@ -20,7 +20,7 @@ namespace Assets.Scripts.AI
         {
             _shotSource = shotSource;
             _nav = nav;
-            _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletController>();
+            _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
             _msBetweenShots = msBetweenShots;
         }
 
