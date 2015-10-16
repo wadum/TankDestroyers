@@ -9,6 +9,7 @@ namespace Assets.Scripts
 
         public ParticleSystem Explosion;
         public AudioSource Shoot;
+        public AudioSource Hit;
 
         private bool _moving = true;
 
@@ -34,9 +35,11 @@ namespace Assets.Scripts
             _moving = false;
             Explosion.Play();
             Shoot.Stop();
+            Hit.Play();
             GameObject missileBody = transform.GetChild(0).gameObject;
             missileBody.SetActive(false);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
+            Hit.Stop();
             missileBody.SetActive(true);
             gameObject.SetActive(false);
         }
