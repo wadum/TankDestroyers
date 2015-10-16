@@ -21,6 +21,7 @@ namespace Assets.Scripts.AI
         private PatrolState _patrolState;
         private IState _currentState;
         private AudioSource _shotSource;
+        private int _health = 100;
 
         void Start ()
         {
@@ -53,6 +54,13 @@ namespace Assets.Scripts.AI
             
             _chaseState.Target = other.gameObject.transform;
             _currentState = _chaseState;
+        }
+
+        public void HitByBullet()
+        {
+            _health -= 25;
+            if(_health < 0)
+                Destroy(gameObject);
         }
 
         void InitiateSoundSettings()

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Assets.Scripts.AI;
 
 namespace Assets.Scripts
 {
@@ -22,6 +23,7 @@ namespace Assets.Scripts
                     StartCoroutine(MissileHit());
                     break;
                 case "Enemy":
+                    other.transform.parent.gameObject.GetComponent<EnemyMovement>().HitByBullet();
                     StartCoroutine(MissileHit());
                     break;
                 case "Wall":
