@@ -11,5 +11,11 @@
             public static string Mine = "Mine";
             public static string Waypoint = "Waypoint";
         }
+
+        public static class MapGeneration
+        {
+            public static string WaypointsGo = "Waypoints";
+            public static string WallsGo = "Walls";
+        }
     }
 }
