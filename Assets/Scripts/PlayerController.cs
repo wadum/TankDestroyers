@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class PlayerController : MonoBehaviour
     {
 
-        public int Health = 3;
+        public float Health = 3;
 
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
@@ -22,14 +22,19 @@ namespace Assets.Scripts
 
         private Rigidbody _rb;
         private AudioSource _shotSource;
-        private int _health;
+        private float _health;
         private int _mineAmount;
         private bool _disableControls = false;
 
         public IWeaponController Weapon;
+        private RadialSlider _healthBar;
+        private RadialSlider _reloadBar;
 
         void Start()
         {
+            Instantiate(Resources.Load("UI"));
+            _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
+            _reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
@@ -82,9 +87,10 @@ namespace Assets.Scripts
             Weapon = newWeapon;
         }
 
-        private IEnumerator TakeDamage(int amount)
+        private IEnumerator TakeDamage(float amount)
         {
             _health -= amount;
+            _healthBar.SetValue(_health/Health * 100);
             if (_health >= 1) yield break;
             _disableControls = true;
             yield return new WaitForSeconds(3);

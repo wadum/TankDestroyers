@@ -10,6 +10,8 @@ TagManager:
   - Mine
   - Waypoint
   - MissileBody
+  - HealthBar
+  - ReloadBar
   layers:
   - Default
   - TransparentFX
