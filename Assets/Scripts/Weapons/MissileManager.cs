@@ -47,7 +47,7 @@ namespace Assets.Scripts.Weapons
             missile.transform.Translate(direction * 3.5f);
             //missile.transform.localRotation = Quaternion.Euler(direction);
             missile.transform.GetChild(0).localRotation = Quaternion.LookRotation(direction, Vector3.up);
-            StartCoroutine(missile.GetComponent<MissileController>().MoveMissile(direction, MissileSpeed));
+            missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed);
         }
 
     }

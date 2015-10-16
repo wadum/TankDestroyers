@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace Assets.Scripts
 {
@@ -7,6 +8,7 @@ namespace Assets.Scripts
     {
 
         public ParticleSystem Explosion;
+        public AudioSource Shoot;
 
         private bool _moving = true;
 
@@ -31,6 +33,7 @@ namespace Assets.Scripts
         {
             _moving = false;
             Explosion.Play();
+            Shoot.Stop();
             GameObject missileBody = transform.GetChild(0).gameObject;
             missileBody.SetActive(false);
             yield return new WaitForSeconds(1);
@@ -41,11 +44,18 @@ namespace Assets.Scripts
         public IEnumerator MoveMissile(Vector3 direction, float missileSpeed)
         {
             _moving = true;
+            Shoot.Play();
             while (_moving)
             {
                 transform.Translate(direction * missileSpeed);
                 yield return null;
             }
+        }
+
+        public void FireMissile(Vector3 direction, float missileSpeed)
+        {
+            Shoot.Play();
+            StartCoroutine(MoveMissile(direction, missileSpeed));
         }
     }
 }
