@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &111242
 GameObject:
   m_ObjectHideFlags: 1
@@ -120,8 +120,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104876}
-  m_LocalRotation: {x: .42261833, y: 0, z: 0, w: .906307817}
-  m_LocalPosition: {x: 0, y: 25, z: -15}
+  m_LocalRotation: {x: .0871557519, y: 0, z: 0, w: .99619472}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 489056}
@@ -390,8 +390,6 @@ MonoBehaviour:
   Health: 3
   RotationMagnitude: 100
   MovementMagnitude: 50
-  TankShotSound: {fileID: 8300000, guid: 37f8a903f3347484d8d2596ae2f304ca, type: 3}
-  TankShotVolume: .300000012
   MinePrefab: {fileID: 119916, guid: 3a73e26f88957b343af0490c9403c8f0, type: 2}
   MineStartAmount: 3
 --- !u!124 &12489270
