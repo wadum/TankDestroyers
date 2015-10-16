@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
@@ -26,18 +27,22 @@ namespace Assets.Scripts.AI
 
         public void ExecuteState()
         {
+            _nav.enabled = true;
             if (Target != null)
                 _nav.destination = Target.position;
-            FireIfEnemy();
+            if (FireIfEnemy())
+                _nav.enabled = false;
         }
 
-        private void FireIfEnemy()
+        private bool FireIfEnemy()
         {
             var fwd = _nav.transform.TransformDirection(Vector3.forward);
             var hits = Physics.RaycastAll(_nav.transform.position, fwd, 10f);
 
-            if (hits.Where(other => other.transform.tag == Constants.Tags.Player).Any())
-                FireIfAllowed(fwd); 
+            if (!hits.Where(other => other.transform.tag == Constants.Tags.Player).Any()) return false;
+            
+            FireIfAllowed(fwd);
+            return true;
         }
 
         private void FireIfAllowed(Vector3 direction)
