@@ -32,10 +32,12 @@ namespace Assets.Scripts
         IEnumerator BulletHit()
         {
             _moving = false;
+            gameObject.GetComponent<SphereCollider>().enabled = false;
             Explosion.Play();
             GetComponentInChildren<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(1);
             GetComponentInChildren<MeshRenderer>().enabled = true;
+            gameObject.GetComponent<SphereCollider>().enabled = true;
             gameObject.SetActive(false);  
         }
 

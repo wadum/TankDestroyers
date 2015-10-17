@@ -35,6 +35,7 @@ namespace Assets.Scripts
         private IEnumerator MissileHit()
         {
             _moving = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
             Explosion.Play();
             Shoot.Stop();
             Hit.Play();
@@ -43,6 +44,7 @@ namespace Assets.Scripts
             yield return new WaitForSeconds(2);
             Hit.Stop();
             missileBody.SetActive(true);
+            gameObject.GetComponent<BoxCollider>().enabled = true;
             gameObject.SetActive(false);
         }
 
