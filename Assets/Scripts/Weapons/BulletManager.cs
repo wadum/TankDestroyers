@@ -42,9 +42,9 @@ namespace Assets.Scripts.Weapons
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
-           // bullet.transform.Rotate(Quaternion.FromToRotation(bullet.transform.forward, direction).eulerAngles);
             bullet.transform.Translate(direction * 3);
-            
+            bullet.transform.Translate(Vector3.up * 1.5f);
+
             bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed);
         }
 
