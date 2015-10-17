@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TreeEditor;
 
 namespace Assets.Scripts.Weapons
 {
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Weapons
             for (var i = 0; i < 10; i++)
             {
                 var b = Instantiate(_bulletPrefab);
+                b.transform.parent = transform;
                 b.SetActive(false);
                 _bullets.Add(b);
             }
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Weapons
             if (!b)
             {
                 b = Instantiate(_bulletPrefab);
+                b.transform.parent = transform;
                 _bullets.Add(b);
             }
             b.SetActive(true);

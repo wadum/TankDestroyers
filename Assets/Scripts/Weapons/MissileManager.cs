@@ -22,6 +22,7 @@ namespace Assets.Scripts.Weapons
             for (var i = 0; i < 10; i++)
             {
                 var b = Instantiate(_missilePrefab);
+                b.transform.parent = transform;
                 b.SetActive(false);
                 _missiles.Add(b);
             }
@@ -33,6 +34,7 @@ namespace Assets.Scripts.Weapons
             if (!b)
             {
                 b = Instantiate(_missilePrefab);
+                b.transform.parent = transform;
                 _missiles.Add(b);
             }
             b.SetActive(true);

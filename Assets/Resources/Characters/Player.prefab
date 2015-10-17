@@ -284,7 +284,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.20000005, y: 2.05999994, z: 5.05999994}
-  m_Center: {x: 0, y: 1.08000004, z: -.129999995}
+  m_Center: {x: 0, y: 1.20000005, z: -.129999995}
 --- !u!81 &8129666
 AudioListener:
   m_ObjectHideFlags: 1
@@ -307,7 +307,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -377,7 +376,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -529,6 +527,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Volume
       value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Center.y
+      value: 1.20000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
