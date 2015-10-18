@@ -8,6 +8,8 @@ namespace Assets.Scripts
 
         public ParticleSystem MineExplosion;
 
+        public AudioSource placing;
+
         void OnTriggerEnter(Collider other)
         {
             switch (other.tag)
@@ -28,6 +30,14 @@ namespace Assets.Scripts
             GetComponent<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(2);
             Destroy(gameObject);
+        }
+
+        public void Place(Vector3 origin, Vector3 direction)
+        {
+            transform.position = origin;
+            transform.Translate(direction * -3.5f);
+            transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
+            placing.Play();
         }
     }
 }

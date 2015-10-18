@@ -69,10 +69,8 @@ namespace Assets.Scripts
             {
                 if (_mineAmount < 1)
                     return;
-                var mine = (GameObject)Instantiate(MinePrefab);
-                mine.transform.position = transform.position;
-                mine.transform.Translate(transform.forward*-3.5f);
-                mine.transform.position = new Vector3(mine.transform.position.x, 0.2f, mine.transform.position.z);
+                var mine = ((GameObject)Instantiate(MinePrefab)).GetComponent<MineController>();
+                mine.Place(transform.position, transform.forward);
                 _mineAmount--;
                 SetAvailableMines(_mineAmount);
             }
