@@ -12,6 +12,8 @@ TagManager:
   - MissileBody
   - HealthBar
   - ReloadBar
+  - MinesBar
+  - MissilesBar
   layers:
   - Default
   - TransparentFX

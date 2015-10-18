@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.UI;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 
@@ -18,6 +18,7 @@ namespace Assets.Scripts
         [Header("Mine Settings")]
         public GameObject MinePrefab;
         public int MineStartAmount = 3;
+        public GameObject[] InactiveMines;
 
 
         private Rigidbody _rb;
@@ -29,6 +30,7 @@ namespace Assets.Scripts
         public IWeaponController Weapon;
         private RadialSlider _healthBar;
         private RadialSlider _reloadBar;
+        private UiMineController _mineBar;
 
         void Start()
         {
@@ -38,22 +40,29 @@ namespace Assets.Scripts
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
+            _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
+            _mineBar.SetAvailableMines(_mineAmount);
             if (Weapon == null)
                 Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
+        }
+
+        void FixedUpdate()
+        {
+            if (_disableControls) return;
+            if (Input.GetKey("a"))
+                _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
+            if (Input.GetKey("d"))
+                _rb.AddTorque(new Vector3(0, 1 * RotationMagnitude, 0));
+            if (Input.GetKey("w"))
+                _rb.AddForce(transform.forward * MovementMagnitude);
+            if (Input.GetKey("s"))
+                _rb.AddForce(transform.forward * -MovementMagnitude);
         }
 
         // Update is called once per frame
         void Update ()
         {
             if (_disableControls) return;
-            if (Input.GetKey("a"))
-                _rb.AddTorque(new Vector3(0, -1*RotationMagnitude,0));
-            if (Input.GetKey("d"))
-                _rb.AddTorque(new Vector3(0, 1*RotationMagnitude, 0));
-            if (Input.GetKey("w"))
-                _rb.AddForce(transform.forward * MovementMagnitude);
-            if (Input.GetKey("s"))
-                _rb.AddForce(transform.forward * -MovementMagnitude);
             if (Input.GetKeyDown("space"))
                 Weapon.FireWeapon(transform.position, transform.forward);
             if (Input.GetKeyDown("left ctrl"))
@@ -63,7 +72,9 @@ namespace Assets.Scripts
                 var mine = (GameObject)Instantiate(MinePrefab);
                 mine.transform.position = transform.position;
                 mine.transform.Translate(transform.forward*-3.5f);
+                mine.transform.position = new Vector3(mine.transform.position.x, 0.2f, mine.transform.position.z);
                 _mineAmount--;
+                SetAvailableMines(_mineAmount);
             }
         }
 
@@ -80,6 +91,7 @@ namespace Assets.Scripts
         public void AddMines(int amount)
         {
             _mineAmount += amount;
+            SetAvailableMines(_mineAmount);
         }
 
         public void ChangeWeapon(IWeaponController newWeapon)
@@ -95,6 +107,15 @@ namespace Assets.Scripts
             _disableControls = true;
             yield return new WaitForSeconds(3);
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+        private void SetAvailableMines(int amount)
+        {
+            _mineBar.SetAvailableMines(_mineAmount);
+            for (var i = 0; i < InactiveMines.Length; i++)
+            {
+                InactiveMines[i].SetActive(i < amount);
+            }
         }
     }
 }
