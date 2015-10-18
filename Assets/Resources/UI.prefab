@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22460908}
+  - 114: {fileID: 11486924}
   m_Layer: 0
   m_Name: Mines
   m_TagString: MinesBar
@@ -594,6 +595,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11486924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7b717477316b34e80c9948ba4fb7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mines:
+  - {fileID: 121692}
+  - {fileID: 102976}
+  - {fileID: 158328}
 --- !u!114 &11487342
 MonoBehaviour:
   m_ObjectHideFlags: 1

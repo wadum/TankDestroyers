@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.UI;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 
@@ -29,6 +29,7 @@ namespace Assets.Scripts
         public IWeaponController Weapon;
         private RadialSlider _healthBar;
         private RadialSlider _reloadBar;
+        private UiMineController _mineBar;
 
         void Start()
         {
@@ -38,6 +39,8 @@ namespace Assets.Scripts
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
+            _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
+            _mineBar.SetAvailableMines(_mineAmount);
             if (Weapon == null)
                 Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
@@ -68,7 +71,9 @@ namespace Assets.Scripts
                 var mine = (GameObject)Instantiate(MinePrefab);
                 mine.transform.position = transform.position;
                 mine.transform.Translate(transform.forward*-3.5f);
+                mine.transform.position = new Vector3(mine.transform.position.x, 0.05f, mine.transform.position.z);
                 _mineAmount--;
+                _mineBar.SetAvailableMines(_mineAmount);
             }
         }
 
@@ -85,6 +90,7 @@ namespace Assets.Scripts
         public void AddMines(int amount)
         {
             _mineAmount += amount;
+            _mineBar.SetAvailableMines(_mineAmount);
         }
 
         public void ChangeWeapon(IWeaponController newWeapon)
