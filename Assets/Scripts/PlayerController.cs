@@ -42,18 +42,22 @@ namespace Assets.Scripts
                 Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
 
-        // Update is called once per frame
-        void Update ()
+        void FixedUpdate()
         {
-            if (_disableControls) return;
             if (Input.GetKey("a"))
-                _rb.AddTorque(new Vector3(0, -1*RotationMagnitude,0));
+                _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
             if (Input.GetKey("d"))
-                _rb.AddTorque(new Vector3(0, 1*RotationMagnitude, 0));
+                _rb.AddTorque(new Vector3(0, 1 * RotationMagnitude, 0));
             if (Input.GetKey("w"))
                 _rb.AddForce(transform.forward * MovementMagnitude);
             if (Input.GetKey("s"))
                 _rb.AddForce(transform.forward * -MovementMagnitude);
+        }
+
+        // Update is called once per frame
+        void Update ()
+        {
+            if (_disableControls) return;
             if (Input.GetKeyDown("space"))
                 Weapon.FireWeapon(transform.position, transform.forward);
             if (Input.GetKeyDown("left ctrl"))
