@@ -74,7 +74,6 @@ namespace Assets.Scripts
                 mine.transform.Translate(transform.forward*-3.5f);
                 mine.transform.position = new Vector3(mine.transform.position.x, 0.05f, mine.transform.position.z);
                 _mineAmount--;
-                _mineBar.SetAvailableMines(_mineAmount);
                 SetAvailableMines(_mineAmount);
             }
         }
@@ -92,7 +91,6 @@ namespace Assets.Scripts
         public void AddMines(int amount)
         {
             _mineAmount += amount;
-            _mineBar.SetAvailableMines(_mineAmount);
             SetAvailableMines(_mineAmount);
         }
 
@@ -113,6 +111,7 @@ namespace Assets.Scripts
 
         private void SetAvailableMines(int amount)
         {
+            _mineBar.SetAvailableMines(_mineAmount);
             amount = Mathf.Min(amount, InactiveMines.Length);
             for (var i = 0; i < InactiveMines.Length; i++)
             {
