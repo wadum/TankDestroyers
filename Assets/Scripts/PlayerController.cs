@@ -18,6 +18,7 @@ namespace Assets.Scripts
         [Header("Mine Settings")]
         public GameObject MinePrefab;
         public int MineStartAmount = 3;
+        public GameObject[] InactiveMines;
 
 
         private Rigidbody _rb;
@@ -74,6 +75,7 @@ namespace Assets.Scripts
                 mine.transform.position = new Vector3(mine.transform.position.x, 0.05f, mine.transform.position.z);
                 _mineAmount--;
                 _mineBar.SetAvailableMines(_mineAmount);
+                SetAvailableMines(_mineAmount);
             }
         }
 
@@ -91,6 +93,7 @@ namespace Assets.Scripts
         {
             _mineAmount += amount;
             _mineBar.SetAvailableMines(_mineAmount);
+            SetAvailableMines(_mineAmount);
         }
 
         public void ChangeWeapon(IWeaponController newWeapon)
@@ -106,6 +109,15 @@ namespace Assets.Scripts
             _disableControls = true;
             yield return new WaitForSeconds(3);
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+        private void SetAvailableMines(int amount)
+        {
+            amount = Mathf.Min(amount, InactiveMines.Length);
+            for (var i = 0; i < InactiveMines.Length; i++)
+            {
+                InactiveMines[i].SetActive(i < amount);
+            }
         }
     }
 }
