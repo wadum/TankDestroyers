@@ -8,8 +8,11 @@ namespace Assets.Scripts
 
         public float StartValue = 100;
 
+        private Text _text;
+
         void Start()
         {
+            _text = GetComponentInChildren<Text>();
             SetValue(StartValue);
         }
 
@@ -26,8 +29,11 @@ namespace Assets.Scripts
 
             var col = Color.Lerp(Color.red, Color.green, angle * 4);
             col.a = 0.5f;
-
             GetComponent<Image>().color = col;
+
+            if (!_text) return;
+            _text.text = Mathf.FloorToInt(angle*400) + "%";
+            _text.color = col;
         }
     
     }
