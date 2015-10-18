@@ -17,7 +17,7 @@ namespace Assets.Scripts.Weapons
         // Use this for initialization
         void Start () {
 
-            _bulletPrefab = (GameObject)Resources.Load("Bullet");
+            _bulletPrefab = (GameObject)Resources.Load("Weapons/Bullet");
             _bullets = new List<GameObject>();
             for (var i = 0; i < 10; i++)
             {

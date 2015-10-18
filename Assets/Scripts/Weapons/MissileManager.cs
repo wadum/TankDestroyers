@@ -17,7 +17,7 @@ namespace Assets.Scripts.Weapons
         void Start()
         {
 
-            _missilePrefab = (GameObject)Resources.Load("Missile");
+            _missilePrefab = (GameObject)Resources.Load("Weapons/Missile");
             _missiles = new List<GameObject>();
             for (var i = 0; i < 10; i++)
             {
