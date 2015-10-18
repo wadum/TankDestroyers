@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Assets.Scripts.Variables;
+using Assets.Scripts.Weapons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +10,10 @@ namespace Assets
     {
 
         #region Fields
+
+        [Header("Surroundings")]
         public GameObject GroundPlane;
+        public GameObject Light;
 
         [Header("Obstacles")]
         public GameObject Wall;
@@ -29,21 +33,27 @@ namespace Assets
         private int _h;
         private int _w;
 
-        private Transform _waypointsParrent;
-        private Transform _wallsParrent;
-
         private const bool DrawDebugGizmo = false;
         #endregion
 
         private void Start()
         {
-            _waypointsParrent = transform.FindChild(Constants.MapGeneration.WaypointsGo);
-            _wallsParrent = transform.FindChild(Constants.MapGeneration.WallsGo);
-
+            GenerateSurrondings();
             GenerateMap();
             AddWaypoints();
             AddTanks();
             DrawMap();
+        }
+
+        private void GenerateSurrondings()
+        {
+            GroundPlane = Instantiate(GroundPlane);
+            Instantiate(Light);
+
+            var gs = new GameObject("GameScripts");
+            gs.tag = Constants.Tags.GameScripts;
+            gs.AddComponent<BulletManager>().BulletSpeed = 0.5f;
+            gs.AddComponent<MissileManager>().MissileSpeed = 0.5f;
         }
 
         private void GenerateMap()
@@ -140,6 +150,14 @@ namespace Assets
 
         private void DrawMap()
         {
+            // Gameobjects for groupin objects in the game hierachy
+            var waypointsParrent = new GameObject("Waypoints").transform;
+            waypointsParrent.parent = transform;
+            var wallsParrent = new GameObject("Walls").transform;
+            wallsParrent.parent = transform;
+            var enemyParrents = new GameObject("Enemies").transform;
+
+
             var vertivces = GroundPlane.GetComponent<MeshFilter>().mesh.vertices;
             var ordered = vertivces.OrderBy(v => v.x).ThenBy(v => v.z);
 
@@ -162,12 +180,12 @@ namespace Assets
                         case 1:
                             var wall = Instantiate(Wall);
                             wall.transform.position = new Vector3(x, 0, z);
-                            wall.transform.parent = _wallsParrent;
+                            wall.transform.parent = wallsParrent;
                             break;
                         case 2:
                             var wp = Instantiate(Waypoint);
                             wp.transform.position = new Vector3(x, 0, z);
-                            wp.transform.parent = _waypointsParrent;
+                            wp.transform.parent = waypointsParrent;
                             break;
                         case 3:
                             var player = Instantiate(Player);
@@ -176,6 +194,7 @@ namespace Assets
                         case 4:
                             var enemy = Instantiate(Enemy);
                             enemy.transform.position = new Vector3(x, 0, z);
+                            enemy.transform.parent = enemyParrents;
                             break;
                         default:
                             continue;
