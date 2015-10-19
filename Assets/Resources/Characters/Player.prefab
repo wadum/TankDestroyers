@@ -671,7 +671,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -741,7 +740,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -850,6 +848,7 @@ MonoBehaviour:
   MovementMagnitude: 100
   MinePrefab: {fileID: 119916, guid: 3a73e26f88957b343af0490c9403c8f0, type: 2}
   MineStartAmount: 3
+  MineDamage: 50
   InactiveMines:
   - {fileID: 119370}
   - {fileID: 191138}
@@ -875,7 +874,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
-  m_Center: {x: -.660000026, y: .430000007, z: -1.79999995}
+  m_Center: {x: -.550000012, y: .430000007, z: -1.79999995}
 --- !u!135 &13572416
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -887,7 +886,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
-  m_Center: {x: -.660000026, y: .430000007, z: 1.28999996}
+  m_Center: {x: -.550000012, y: .430000007, z: 1.28999996}
 --- !u!135 &13575622
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -899,7 +898,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
-  m_Center: {x: .649999976, y: .430000007, z: 1.28999996}
+  m_Center: {x: .550000012, y: .430000007, z: 1.28999996}
 --- !u!135 &13594862
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -911,7 +910,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
-  m_Center: {x: .660000026, y: .430000007, z: -1.79999995}
+  m_Center: {x: .550000012, y: .430000007, z: -1.79999995}
 --- !u!136 &13696090
 CapsuleCollider:
   m_ObjectHideFlags: 1
