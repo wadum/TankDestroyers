@@ -49,6 +49,10 @@ MonoBehaviour:
   NumberOfEnemies: 10
   Waypoint: {fileID: 165758, guid: 81f368a79117c8e499f8a193a4ea83fa, type: 2}
   NumberOfWaypoints: 50
+  NumberOfPickUps: 20
+  PickUpTypes:
+  - {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
+  - {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

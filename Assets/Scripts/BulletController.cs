@@ -8,7 +8,6 @@ namespace Assets.Scripts
     {
 
         public ParticleSystem Explosion;
-        public AudioSource Shoot;
 
         private bool _moving;
 
@@ -43,7 +42,6 @@ namespace Assets.Scripts
 
         public void FireBullet(Vector3 direction, float bulletSpeed)
         {
-            Shoot.Play();
             StartCoroutine(MoveBullet(direction, bulletSpeed));
         }
 

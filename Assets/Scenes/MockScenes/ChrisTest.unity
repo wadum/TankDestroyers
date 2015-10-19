@@ -122,27 +122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 498852, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 158492, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 102308, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 102308, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 141750, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 141750, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
