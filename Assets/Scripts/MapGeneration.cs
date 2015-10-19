@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets
+namespace Assets.Scripts
 {
     public class MapGeneration : MonoBehaviour
     {
@@ -22,6 +24,7 @@ namespace Assets
         [Header("Tanks")]
         public GameObject Player;
         public GameObject Enemy;
+        public GameObject Hangar;
         public int NumberOfEnemies;
 
         [Header("Waypoints")]
@@ -32,6 +35,7 @@ namespace Assets
         private int[,] _map;
         private int _h;
         private int _w;
+        private Dictionary<string, int> _tankRotations;
 
         private const bool DrawDebugGizmo = false;
         #endregion
@@ -136,26 +140,74 @@ namespace Assets
 
         private void AddTanks()
         {
+            _tankRotations = new Dictionary<string, int>();
             for (var i = 0; i < NumberOfEnemies; i++)
             {
-                int x = 0, z = 0;
-                while (_map[x, z] != 0)
+                var dir = Random.Range(0, 3);
+                int x = 0, z = 0, front = -1;
+                while (_map[x, z] != 0 || front != 0)
                 {
                     x = Random.Range(1, _h - 1);
                     z = Random.Range(1, _w - 1);
+
+                    // Makes sure the hangar is not ganna be blocked 
+                    try
+                    {
+                        switch (dir)
+                        {
+                            case 0:
+                                front = _map[x, z + 1] + _map[x, z + 2];
+                                break;
+                            case 1:
+                                front = _map[x + 1, z] + _map[x + 2, z];
+                                break;
+                            case 2:
+                                front = _map[x, z - 1] + _map[x, z - 2];
+                                break;
+                            case 3:
+                                front = _map[x - 1, z] + _map[x - 2, z];
+                                break;
+                        }
+                    }
+                    catch (IndexOutOfRangeException e)
+                    {
+                        front = -1;
+                    }
                 }
+
+                _tankRotations.Add(x + ":" + z, dir);
                 _map[x, z] = i == 0 ? 3 : 4;
+
+                switch (dir)
+                {
+                    case 0:
+                        _map[x, z + 1] = 5;
+                        _map[x, z + 2] = 5;
+                        break;
+                    case 1:
+                        _map[x + 1, z] = 5;
+                        _map[x + 2, z] = 5;
+                        break;
+                    case 2:
+                        _map[x, z - 1] = 5;
+                        _map[x, z - 2] = 5;
+                        break;
+                    case 3:
+                        _map[x - 1, z] = 5;
+                        _map[x - 2, z] = 5;
+                        break;
+                }
             }
         }
 
         private void DrawMap()
         {
             // Gameobjects for groupin objects in the game hierachy
-            var waypointsParrent = new GameObject("Waypoints").transform;
-            waypointsParrent.parent = transform;
-            var wallsParrent = new GameObject("Walls").transform;
-            wallsParrent.parent = transform;
-            var enemyParrents = new GameObject("Enemies").transform;
+            var waypointParrent = new GameObject("Waypoints").transform;
+            waypointParrent.parent = transform;
+            var wallParrent = new GameObject("Walls").transform;
+            wallParrent.parent = transform;
+            var hangarParrent = new GameObject("Hangars").transform;
 
 
             var vertivces = GroundPlane.GetComponent<MeshFilter>().mesh.vertices;
@@ -180,21 +232,29 @@ namespace Assets
                         case 1:
                             var wall = Instantiate(Wall);
                             wall.transform.position = new Vector3(x, 0, z);
-                            wall.transform.parent = wallsParrent;
+                            wall.transform.parent = wallParrent;
                             break;
                         case 2:
                             var wp = Instantiate(Waypoint);
                             wp.transform.position = new Vector3(x, 0, z);
-                            wp.transform.parent = waypointsParrent;
+                            wp.transform.parent = waypointParrent;
                             break;
                         case 3:
-                            var player = Instantiate(Player);
-                            player.transform.position = new Vector3(x, 0, z);
-                            break;
                         case 4:
-                            var enemy = Instantiate(Enemy);
-                            enemy.transform.position = new Vector3(x, 0, z);
-                            enemy.transform.parent = enemyParrents;
+
+                            var yRotation = _tankRotations[i + ":" + j] * 90;
+                            var roration = new Quaternion(0,yRotation, 0,0);
+
+                            var tank = Instantiate(_map[i,j] == 3 ? Player : Enemy).transform;
+                            tank.position = new Vector3(x, 0, z);
+                            tank.rotation = roration;
+                            
+                            var hangar = Instantiate(Hangar).transform;
+                            hangar.position = tank.transform.position;
+                            hangar.rotation = roration;
+
+                            hangar.parent = hangarParrent;
+                            
                             break;
                         default:
                             continue;
@@ -209,7 +269,7 @@ namespace Assets
         {
 
 
-            if (!DrawDebugGizmo) return;
+            if (!DrawDebugGizmo || _map == null) return;
 
             var h = _map.GetLength(0);
             var w = _map.GetLength(1);
