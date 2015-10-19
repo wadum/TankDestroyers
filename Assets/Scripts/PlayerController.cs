@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Assets.Scripts.UI;
 using Assets.Scripts.Weapons;
 using UnityEngine;
@@ -60,12 +61,17 @@ namespace Assets.Scripts
 
             HealthIndicator.SetHealth(100);
             _firstPersonUi = (GameObject)Instantiate(Resources.Load("UI"));
-            _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
-            _reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
+            _healthBar =
+                _firstPersonUi.transform.GetComponentsInChildren<RadialSlider>().First(s => s.tag == "HealthBar");
+            //_healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
+            //_reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
+            _reloadBar =
+                _firstPersonUi.transform.GetComponentsInChildren<RadialSlider>().First(s => s.tag == "ReloadBar");
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
-            _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
+            _mineBar = _firstPersonUi.transform.GetComponentsInChildren<UiMineController>().First(s => s.tag == "MinesBar");
+            //_mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
             UpdateCameraMode();
             if (_weapon == null)
