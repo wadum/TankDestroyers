@@ -4,11 +4,12 @@ using System.Linq;
 using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
+using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
-    public class MapGeneration : MonoBehaviour
+    public class MapGeneration : NetworkBehaviour
     {
 
         #region Fields
@@ -32,6 +33,7 @@ namespace Assets.Scripts
         public int NumberOfWaypoints;
 
         private int _grained;
+        
         private int[,] _map;
         private int _h;
         private int _w;
@@ -40,13 +42,18 @@ namespace Assets.Scripts
         private const bool DrawDebugGizmo = false;
         #endregion
 
-        private void Start()
+
+        public override void OnStartServer()
+        {
+            //GenerateSurrondings();
+            //GenerateMap();
+            //AddWaypoints();
+            //AddTanks();
+        }
+        public override void OnStartClient()
         {
             GenerateSurrondings();
-            GenerateMap();
-            AddWaypoints();
-            AddTanks();
-            DrawMap();
+            //DrawMap();
         }
 
         private void GenerateSurrondings()
@@ -233,6 +240,7 @@ namespace Assets.Scripts
                             var wall = Instantiate(Wall);
                             wall.transform.position = new Vector3(x, 0, z);
                             wall.transform.parent = wallParrent;
+                            NetworkServer.Spawn(wall);
                             break;
                         case 2:
                             var wp = Instantiate(Waypoint);

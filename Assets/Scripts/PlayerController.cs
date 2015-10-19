@@ -2,10 +2,11 @@
 using Assets.Scripts.UI;
 using Assets.Scripts.Weapons;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
 
         public float Health = 100;
@@ -14,7 +15,7 @@ namespace Assets.Scripts
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
         public float MovementMagnitude = 0.1f;
-
+        
         [Space(10)]
         [Header("Mine Settings")]
         public GameObject MinePrefab;
@@ -24,14 +25,16 @@ namespace Assets.Scripts
 
         [Space(10)]
         [Header("Camera")]
+        public GameObject MyCamera;
         public GameObject FirstPerson;
         public GameObject ThirdPerson;
         public bool FirstPersonMode = false;
 
         private Rigidbody _rb;
+        [SyncVar]
         private float _health;
         private int _mineAmount;
-        private bool _disableControls = false;
+        public bool DisableControls = true;
 
         public IWeaponController Weapon;
         private RadialSlider _healthBar;
@@ -41,6 +44,14 @@ namespace Assets.Scripts
 
         void Start()
         {
+            if (isLocalPlayer)
+            {
+                DisableControls = false;
+                gameObject.GetComponent<AudioSource>().enabled = true;
+                MyCamera.SetActive(true);
+            }
+
+
             HealthIndicator.SetHealth(100);
             _firstPersonUI = (GameObject)Instantiate(Resources.Load("UI"));
             _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
@@ -57,7 +68,7 @@ namespace Assets.Scripts
 
         void FixedUpdate()
         {
-            if (_disableControls) return;
+            if (DisableControls) return;
             if (Input.GetKey("a"))
                 _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
             if (Input.GetKey("d"))
@@ -71,7 +82,8 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update ()
         {
-            if (_disableControls) return;
+            UpdateHealthIndicators();
+            if (DisableControls) return;
             if (Input.GetKeyDown("f"))
             {
                 FirstPersonMode = !FirstPersonMode;
@@ -83,16 +95,27 @@ namespace Assets.Scripts
             {
                 if (_mineAmount < 1)
                     return;
-                var mine = ((GameObject)Instantiate(MinePrefab)).GetComponent<MineController>();
-                mine.Place(transform.position, transform.forward);
+
+                Cmd_PlaceMine();
                 _mineAmount--;
                 SetAvailableMines(_mineAmount);
             }
         }
 
+        [Command]
+        public void Cmd_PlaceMine()
+        {
+            var mine = ((GameObject)Instantiate(MinePrefab)).GetComponent<MineController>();
+            mine.transform.position = transform.position;
+            mine.transform.Translate(transform.forward * 10f);
+            mine.transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
+
+            NetworkServer.Spawn(gameObject);
+        }
+
         public void HitByBullet()
         {
-            StartCoroutine(TakeDamage(1));
+            StartCoroutine(TakeDamage(10));
         }
 
         public void HitByMine()
@@ -122,20 +145,21 @@ namespace Assets.Scripts
             _health -= amount;
             UpdateHealthIndicators();
             if (_health >= 1) yield break;
-            _disableControls = true;
+            DisableControls = true;
             yield return new WaitForSeconds(3);
             Application.LoadLevel(Application.loadedLevel);
         }
 
         private void UpdateHealthIndicators()
         {
-            _healthBar.SetValue(_health / Health * 100);
+            if(isLocalPlayer)
+                _healthBar.SetValue(_health / Health * 100);
             HealthIndicator.SetHealth(_health / Health * 100);
         }
 
         private void UpdateCameraMode()
         {
-            Camera.main.transform.localPosition = FirstPersonMode
+            MyCamera.transform.localPosition = FirstPersonMode
                     ? FirstPerson.transform.localPosition
                     : ThirdPerson.transform.localPosition;
             foreach (var cr in  _firstPersonUI.GetComponentsInChildren<CanvasRenderer>())
@@ -152,5 +176,8 @@ namespace Assets.Scripts
                 InactiveMines[i].SetActive(i < amount);
             }
         }
+
+
+
     }
 }
