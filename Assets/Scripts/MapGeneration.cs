@@ -5,7 +5,6 @@ using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
@@ -34,14 +33,8 @@ namespace Assets.Scripts
         public int NumberOfWaypoints;
 
         private int _grained;
-
-        [SyncVar]
-        private SyncListInt ins = new SyncListInt();
-
         private int[,] _map;
-        [SyncVar]
         private int _h;
-        [SyncVar]
         private int _w;
         private Dictionary<string, int> _tankRotations;
 
@@ -55,27 +48,16 @@ namespace Assets.Scripts
             GenerateMap();
             AddWaypoints();
             AddTanks();
-        }
-
-
-        [Server]
-        int[,] ValueMap()
-        {
-            return _map;
-        }
-
-        public override void OnStartClient()
-        {
-            base.OnStartClient();
             GenerateSurrondings();
-            _map = ValueMap();
             DrawMap();
         }
 
         private void GenerateSurrondings()
         {
             GroundPlane = Instantiate(GroundPlane);
+            NetworkServer.Spawn(GroundPlane);
             Instantiate(Light);
+            NetworkServer.Spawn(Light);
 
             var gs = new GameObject("GameScripts");
             gs.tag = Constants.Tags.GameScripts;
@@ -262,11 +244,11 @@ namespace Assets.Scripts
                             var wp = Instantiate(Waypoint);
                             wp.transform.position = new Vector3(x, 0, z);
                             wp.transform.parent = waypointParrent;
+                            NetworkServer.Spawn(wp);
                             break;
                         case 3:
                             break;
                         case 4:
-
                             var yRotation = _tankRotations[i + ":" + j] * 90;
                             var roration = new Quaternion(0,yRotation, 0,0);
 
@@ -274,11 +256,13 @@ namespace Assets.Scripts
                             tank.position = new Vector3(x, 0, z);
                             tank.rotation = roration;
                             
+                            NetworkServer.Spawn(tank.gameObject);
                             var hangar = Instantiate(Hangar).transform;
                             hangar.position = tank.transform.position;
                             hangar.rotation = roration;
 
                             hangar.parent = hangarParrent;
+                            NetworkServer.Spawn(hangar.gameObject);
                             
                             break;
                         default:
