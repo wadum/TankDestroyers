@@ -121,10 +121,9 @@ namespace Assets.Scripts
         {
             var mine = ((GameObject)Instantiate(MinePrefab)).GetComponent<MineController>();
             mine.transform.position = transform.position;
-            mine.transform.Translate(transform.forward * 10f);
-            mine.transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
-
-            NetworkServer.Spawn(gameObject);
+            mine.transform.Translate(transform.forward * -3.5f);
+            mine.transform.position = new Vector3(mine.transform.position.x, 0.2f, mine.transform.position.z);
+            NetworkServer.Spawn(mine.gameObject);
         }
 
         public void HitByBullet()

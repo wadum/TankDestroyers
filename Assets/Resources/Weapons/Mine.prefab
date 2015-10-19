@@ -153,6 +153,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -238,7 +239,7 @@ MonoBehaviour:
     i14: 200
     i15: 240
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11430780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2453,6 +2454,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SyncSpin
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPlayerAuthority
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
