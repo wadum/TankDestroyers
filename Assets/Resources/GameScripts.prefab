@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62a7fc0412745c4c862cc254e095e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: .5
+  BulletSpeed: 2
 --- !u!114 &11485822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,6 +63,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: GameScripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BulletSpeed
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

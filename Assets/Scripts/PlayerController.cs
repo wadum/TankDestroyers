@@ -28,21 +28,27 @@ namespace Assets.Scripts
         public GameObject ThirdPerson;
         public bool FirstPersonMode = false;
 
+        [Space(10)]
+        [Header("Weapons")]
+        public float MachineGunCd = 0.1f;
+        public AudioSource MachineGunSound;
+
         private Rigidbody _rb;
         private float _health;
         private int _mineAmount;
         private bool _disableControls = false;
 
-        public IWeaponController Weapon;
+        private BulletManager _weapon;
+        private MissileManager _missiles;
         private RadialSlider _healthBar;
         private RadialSlider _reloadBar;
         private UiMineController _mineBar;
-        private GameObject _firstPersonUI;
+        private GameObject _firstPersonUi;
 
         void Start()
         {
             HealthIndicator.SetHealth(100);
-            _firstPersonUI = (GameObject)Instantiate(Resources.Load("UI"));
+            _firstPersonUi = (GameObject)Instantiate(Resources.Load("UI"));
             _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
             _reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
             _rb = gameObject.GetComponent<Rigidbody>();
@@ -51,8 +57,10 @@ namespace Assets.Scripts
             _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
             UpdateCameraMode();
-            if (Weapon == null)
-                Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
+            if (_weapon == null)
+                _weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
+            if (_missiles == null)
+                _missiles = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
 
         void FixedUpdate()
@@ -77,8 +85,14 @@ namespace Assets.Scripts
                 FirstPersonMode = !FirstPersonMode;
                 UpdateCameraMode();
             }
+            if (Input.GetKeyDown("e"))
+            {
+                _missiles.FireWeapon(transform.position, transform.forward);
+            }
             if (Input.GetKeyDown("space"))
-                Weapon.FireWeapon(transform.position, transform.forward);
+            {
+                StartCoroutine(FireMachineGun());
+            }
             if (Input.GetKeyDown("left ctrl"))
             {
                 if (_mineAmount < 1)
@@ -112,9 +126,15 @@ namespace Assets.Scripts
             UpdateHealthIndicators();
         }
 
-        public void ChangeWeapon(IWeaponController newWeapon)
+        private IEnumerator FireMachineGun()
         {
-            Weapon = newWeapon;
+            MachineGunSound.Play();
+            while (Input.GetKey("space"))
+            {
+                _weapon.FireWeapon(transform.position, transform.forward);
+                yield return new WaitForSeconds(MachineGunCd);
+            }
+            MachineGunSound.Stop();
         }
 
         private IEnumerator TakeDamage(float amount)
@@ -138,7 +158,7 @@ namespace Assets.Scripts
             Camera.main.transform.localPosition = FirstPersonMode
                     ? FirstPerson.transform.localPosition
                     : ThirdPerson.transform.localPosition;
-            foreach (var cr in  _firstPersonUI.GetComponentsInChildren<CanvasRenderer>())
+            foreach (var cr in  _firstPersonUi.GetComponentsInChildren<CanvasRenderer>())
             {
                 cr.SetAlpha(FirstPersonMode ? 1 : 0);
             }

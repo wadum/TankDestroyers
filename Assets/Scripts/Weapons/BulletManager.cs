@@ -8,7 +8,7 @@ namespace Assets.Scripts.Weapons
 {
     public class BulletManager : MonoBehaviour, IWeaponController
     {
-        public float BulletSpeed = 0.1f;    
+        public float BulletSpeed = 0.5f;    
         
         private List<GameObject> _bullets;
         private GameObject _bulletPrefab;
@@ -45,8 +45,9 @@ namespace Assets.Scripts.Weapons
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
-            bullet.transform.Translate(direction * 3);
+            bullet.transform.Translate(direction * 4f);
             bullet.transform.Translate(Vector3.up * 1.5f);
+            bullet.transform.Translate(Vector3.right * -.35f);
 
             bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed);
         }
