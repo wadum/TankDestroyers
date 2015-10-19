@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebd792d2a721944b8610cf1096162ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 3
+  Health: 100
   HealthIndicator: {fileID: 11408052}
   RotationMagnitude: 100
   MovementMagnitude: 100
@@ -856,6 +856,7 @@ MonoBehaviour:
   - {fileID: 153686}
   FirstPerson: {fileID: 137646}
   ThirdPerson: {fileID: 152664}
+  FirstPersonMode: 0
 --- !u!124 &12489270
 Behaviour:
   m_ObjectHideFlags: 1
@@ -3020,6 +3021,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mass
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Health
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

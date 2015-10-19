@@ -16,7 +16,7 @@ namespace Assets.Scripts
             {
                 case "Player":
                     StartCoroutine(Hit());
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().HitByMine();
+                    other.gameObject.GetComponent<PlayerController>().HitByMine();
                     break;
                 case "Enemy":
                     StartCoroutine(Hit());

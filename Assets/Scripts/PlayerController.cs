@@ -8,7 +8,7 @@ namespace Assets.Scripts
     public class PlayerController : MonoBehaviour
     {
 
-        public float Health = 3;
+        public float Health = 100;
         public HealthIndicator HealthIndicator;
 
         [Header("Controls")]
@@ -19,6 +19,7 @@ namespace Assets.Scripts
         [Header("Mine Settings")]
         public GameObject MinePrefab;
         public int MineStartAmount = 3;
+        public float MineDamage = 50;
         public GameObject[] InactiveMines;
 
         [Space(10)]
@@ -49,7 +50,7 @@ namespace Assets.Scripts
             _mineAmount = MineStartAmount;
             _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
-            _firstPersonUI.SetActive(FirstPersonMode);
+            UpdateCameraMode();
             if (Weapon == null)
                 Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
@@ -74,10 +75,7 @@ namespace Assets.Scripts
             if (Input.GetKeyDown("f"))
             {
                 FirstPersonMode = !FirstPersonMode;
-                Camera.main.transform.localPosition = FirstPersonMode
-                    ? FirstPerson.transform.localPosition
-                    : ThirdPerson.transform.localPosition;
-                _firstPersonUI.SetActive(FirstPersonMode);
+                UpdateCameraMode();
             }
             if (Input.GetKeyDown("space"))
                 Weapon.FireWeapon(transform.position, transform.forward);
@@ -99,7 +97,7 @@ namespace Assets.Scripts
 
         public void HitByMine()
         {
-            StartCoroutine(TakeDamage(1));
+            StartCoroutine(TakeDamage(MineDamage));
         }
 
         public void AddMines(int amount)
@@ -133,6 +131,17 @@ namespace Assets.Scripts
         {
             _healthBar.SetValue(_health / Health * 100);
             HealthIndicator.SetHealth(_health / Health * 100);
+        }
+
+        private void UpdateCameraMode()
+        {
+            Camera.main.transform.localPosition = FirstPersonMode
+                    ? FirstPerson.transform.localPosition
+                    : ThirdPerson.transform.localPosition;
+            foreach (var cr in  _firstPersonUI.GetComponentsInChildren<CanvasRenderer>())
+            {
+                cr.SetAlpha(FirstPersonMode ? 1 : 0);
+            }
         }
 
         private void SetAvailableMines(int amount)
