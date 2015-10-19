@@ -9,6 +9,7 @@ namespace Assets.Scripts
     {
 
         public float Health = 3;
+        public HealthIndicator HealthIndicator;
 
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
@@ -34,6 +35,7 @@ namespace Assets.Scripts
 
         void Start()
         {
+            HealthIndicator.SetHealth(100);
             Instantiate(Resources.Load("UI"));
             _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
             _reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
@@ -101,6 +103,7 @@ namespace Assets.Scripts
         {
             _health -= amount;
             _healthBar.SetValue(_health/Health * 100);
+            HealthIndicator.SetHealth(_health / Health * 100);
             if (_health >= 1) yield break;
             _disableControls = true;
             yield return new WaitForSeconds(3);
