@@ -128,6 +128,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &137646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 446830}
+  m_Layer: 0
+  m_Name: 1st Person View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &147696
 GameObject:
   m_ObjectHideFlags: 1
@@ -140,6 +155,21 @@ GameObject:
   - 199: {fileID: 19958824}
   m_Layer: 0
   m_Name: Steam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &152664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455950}
+  m_Layer: 0
+  m_Name: 3rd Person View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,6 +296,18 @@ Transform:
   - {fileID: 478272}
   m_Father: {fileID: 489056}
   m_RootOrder: 3
+--- !u!4 &446830
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 489056}
+  m_RootOrder: 5
 --- !u!4 &453304
 Transform:
   m_ObjectHideFlags: 1
@@ -278,6 +320,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 438940}
   m_RootOrder: 2
+--- !u!4 &455950
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152664}
+  m_LocalRotation: {x: .0871557519, y: 0, z: 0, w: .99619472}
+  m_LocalPosition: {x: 0, y: 10, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 489056}
+  m_RootOrder: 4
 --- !u!4 &458810
 Transform:
   m_ObjectHideFlags: 1
@@ -340,6 +394,8 @@ Transform:
   - {fileID: 478682}
   - {fileID: 438940}
   - {fileID: 446678}
+  - {fileID: 455950}
+  - {fileID: 446830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &491952
@@ -615,6 +671,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -684,6 +741,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -796,6 +854,8 @@ MonoBehaviour:
   - {fileID: 119370}
   - {fileID: 191138}
   - {fileID: 153686}
+  FirstPerson: {fileID: 137646}
+  ThirdPerson: {fileID: 152664}
 --- !u!124 &12489270
 Behaviour:
   m_ObjectHideFlags: 1

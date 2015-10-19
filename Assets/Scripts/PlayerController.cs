@@ -21,9 +21,13 @@ namespace Assets.Scripts
         public int MineStartAmount = 3;
         public GameObject[] InactiveMines;
 
+        [Space(10)]
+        [Header("Camera")]
+        public GameObject FirstPerson;
+        public GameObject ThirdPerson;
+        public bool FirstPersonMode = false;
 
         private Rigidbody _rb;
-        private AudioSource _shotSource;
         private float _health;
         private int _mineAmount;
         private bool _disableControls = false;
@@ -32,11 +36,12 @@ namespace Assets.Scripts
         private RadialSlider _healthBar;
         private RadialSlider _reloadBar;
         private UiMineController _mineBar;
+        private GameObject _firstPersonUI;
 
         void Start()
         {
             HealthIndicator.SetHealth(100);
-            Instantiate(Resources.Load("UI"));
+            _firstPersonUI = (GameObject)Instantiate(Resources.Load("UI"));
             _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<RadialSlider>();
             _reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
             _rb = gameObject.GetComponent<Rigidbody>();
@@ -44,6 +49,7 @@ namespace Assets.Scripts
             _mineAmount = MineStartAmount;
             _mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
+            _firstPersonUI.SetActive(FirstPersonMode);
             if (Weapon == null)
                 Weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
         }
@@ -65,6 +71,14 @@ namespace Assets.Scripts
         void Update ()
         {
             if (_disableControls) return;
+            if (Input.GetKeyDown("f"))
+            {
+                FirstPersonMode = !FirstPersonMode;
+                Camera.main.transform.localPosition = FirstPersonMode
+                    ? FirstPerson.transform.localPosition
+                    : ThirdPerson.transform.localPosition;
+                _firstPersonUI.SetActive(FirstPersonMode);
+            }
             if (Input.GetKeyDown("space"))
                 Weapon.FireWeapon(transform.position, transform.forward);
             if (Input.GetKeyDown("left ctrl"))
