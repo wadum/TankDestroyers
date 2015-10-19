@@ -28,6 +28,7 @@ namespace Assets.Scripts
         {
             MineExplosion.Play();
             GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(2);
             Destroy(gameObject);
         }

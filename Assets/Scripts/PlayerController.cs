@@ -94,6 +94,12 @@ namespace Assets.Scripts
             SetAvailableMines(_mineAmount);
         }
 
+        public void AddHealth(int amount)
+        {
+            _health = Mathf.Min(_health + amount, Health);
+            UpdateHealthIndicators();
+        }
+
         public void ChangeWeapon(IWeaponController newWeapon)
         {
             Weapon = newWeapon;
@@ -102,12 +108,17 @@ namespace Assets.Scripts
         private IEnumerator TakeDamage(float amount)
         {
             _health -= amount;
-            _healthBar.SetValue(_health/Health * 100);
-            HealthIndicator.SetHealth(_health / Health * 100);
+            UpdateHealthIndicators();
             if (_health >= 1) yield break;
             _disableControls = true;
             yield return new WaitForSeconds(3);
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+        private void UpdateHealthIndicators()
+        {
+            _healthBar.SetValue(_health / Health * 100);
+            HealthIndicator.SetHealth(_health / Health * 100);
         }
 
         private void SetAvailableMines(int amount)
