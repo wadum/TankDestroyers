@@ -5,6 +5,7 @@ using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
@@ -33,9 +34,14 @@ namespace Assets.Scripts
         public int NumberOfWaypoints;
 
         private int _grained;
-        
+
+        [SyncVar]
+        private SyncListInt ins = new SyncListInt();
+
         private int[,] _map;
+        [SyncVar]
         private int _h;
+        [SyncVar]
         private int _w;
         private Dictionary<string, int> _tankRotations;
 
@@ -45,15 +51,25 @@ namespace Assets.Scripts
 
         public override void OnStartServer()
         {
-            //GenerateSurrondings();
-            //GenerateMap();
-            //AddWaypoints();
-            //AddTanks();
+            base.OnStartServer();
+            GenerateMap();
+            AddWaypoints();
+            AddTanks();
         }
+
+
+        [Server]
+        int[,] ValueMap()
+        {
+            return _map;
+        }
+
         public override void OnStartClient()
         {
+            base.OnStartClient();
             GenerateSurrondings();
-            //DrawMap();
+            _map = ValueMap();
+            DrawMap();
         }
 
         private void GenerateSurrondings()
@@ -248,6 +264,7 @@ namespace Assets.Scripts
                             wp.transform.parent = waypointParrent;
                             break;
                         case 3:
+                            break;
                         case 4:
 
                             var yRotation = _tankRotations[i + ":" + j] * 90;
