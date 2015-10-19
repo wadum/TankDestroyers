@@ -8,7 +8,8 @@ namespace Assets.Scripts
 
         public ParticleSystem MineExplosion;
 
-        public AudioSource placing;
+        public AudioSource PlacingSound;
+        public AudioSource ExplodingSound;
 
         void OnTriggerEnter(Collider other)
         {
@@ -29,7 +30,8 @@ namespace Assets.Scripts
             MineExplosion.Play();
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
-            yield return new WaitForSeconds(2);
+            ExplodingSound.Play();
+            yield return new WaitForSeconds(ExplodingSound.clip.length);
             Destroy(gameObject);
         }
 
@@ -38,7 +40,7 @@ namespace Assets.Scripts
             transform.position = origin;
             transform.Translate(direction * -3.5f);
             transform.position = new Vector3(transform.position.x, 0.2f, transform.position.z);
-            placing.Play();
+            PlacingSound.Play();
         }
     }
 }
