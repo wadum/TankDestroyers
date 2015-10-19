@@ -45,9 +45,14 @@ MonoBehaviour:
   NumberOfObstabcles: 100
   Player: {fileID: 131308, guid: b10e0adbfe4cc06449d8b2061899d3d3, type: 2}
   Enemy: {fileID: 177664, guid: eb298c43e8453bc44bd989705919620c, type: 2}
+  Hangar: {fileID: 141990, guid: ae0c3d0f4a9c77041883db3ee4731e8a, type: 2}
   NumberOfEnemies: 10
   Waypoint: {fileID: 165758, guid: 81f368a79117c8e499f8a193a4ea83fa, type: 2}
   NumberOfWaypoints: 50
+  NumberOfPickUps: 20
+  PickUpTypes:
+  - {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
+  - {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

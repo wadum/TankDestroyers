@@ -31,6 +31,10 @@ namespace Assets.Scripts
         public GameObject Waypoint;
         public int NumberOfWaypoints;
 
+        [Header("Pick Ups")]
+        public int NumberOfPickUps;
+        public GameObject[] PickUpTypes;
+
         private int _grained;
         private int[,] _map;
         private int _h;
@@ -46,6 +50,7 @@ namespace Assets.Scripts
             GenerateMap();
             AddWaypoints();
             AddTanks();
+            AddPickUps();
             DrawMap();
         }
 
@@ -135,6 +140,20 @@ namespace Assets.Scripts
                     z = Random.Range(1, _w - 1);
                 }
                 _map[x, z] = 2;
+            }
+        }
+
+        private void AddPickUps()
+        {
+            for (int i = 0; i < NumberOfPickUps; i++)
+            {
+                int x = 0, z = 0;
+                while (_map[x, z] != 0)
+                {
+                    x = Random.Range(1, _h - 1);
+                    z = Random.Range(1, _w - 1);
+                }
+                _map[x, z] = 6;
             }
         }
 
@@ -255,6 +274,10 @@ namespace Assets.Scripts
 
                             hangar.parent = hangarParrent;
                             
+                            break;
+                        case 6:
+                            var pu = Instantiate(PickUpTypes[Random.Range(0,PickUpTypes.Length)]);
+                            pu.transform.position = new Vector3(x, 0, z);
                             break;
                         default:
                             continue;
