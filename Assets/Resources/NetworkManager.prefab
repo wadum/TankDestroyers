@@ -56,9 +56,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
+  m_ScriptCRCCheck: 1
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
   m_LogLevel: 2
@@ -69,6 +72,17 @@ MonoBehaviour:
   m_OnlineScene: game
   m_SpawnPrefabs:
   - {fileID: 119916, guid: 3a73e26f88957b343af0490c9403c8f0, type: 2}
+  - {fileID: 107566, guid: 3de312a3898e92345825bb578f01deaf, type: 2}
+  - {fileID: 103634, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+  - {fileID: 172898, guid: b6d1bb49d49243447bd0d7b9eb65d244, type: 2}
+  - {fileID: 177664, guid: eb298c43e8453bc44bd989705919620c, type: 2}
+  - {fileID: 141990, guid: ae0c3d0f4a9c77041883db3ee4731e8a, type: 2}
+  - {fileID: 187504, guid: d75c3a7dc26485143848794887254654, type: 2}
+  - {fileID: 119462, guid: 025af7c53be4b464b9c589e35f4e177b, type: 2}
+  - {fileID: 114050, guid: 0233d6e763ef39040b48c6e474abdaab, type: 2}
+  - {fileID: 121358, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
+  - {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
+  - {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
