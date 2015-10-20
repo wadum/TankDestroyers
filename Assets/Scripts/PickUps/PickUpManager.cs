@@ -8,7 +8,7 @@ namespace Assets.Scripts.PickUps
 
         public GameObject PickUpModel;
 
-        void Start()
+        void OnEnable()
         {
             PickUpModel.transform.localPosition = Vector3.up*2;
             PickUpModel.transform.localScale = Vector3.one * 4;

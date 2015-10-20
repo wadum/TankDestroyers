@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Assets.Scripts.PickUps;
 using Assets.Scripts.UI;
 using Assets.Scripts.Weapons;
 using UnityEngine;
@@ -244,7 +245,24 @@ namespace Assets.Scripts
             }
         }
 
+        public bool ResetPickUp(GameObject pickUp)
+        {
+            if (!isLocalPlayer) return false;
+            CmdResetPickUp(pickUp);
+            return true;
+        }
 
+        [Command]
+        public void CmdResetPickUp(GameObject pickUp)
+        {
+            RpcResetPickUp(pickUp);
+        }
+
+        [ClientRpc]
+        public void RpcResetPickUp(GameObject pickUp)
+        {
+            StartCoroutine(pickUp.GetComponent<IPickUpController>().PickUp());
+        }
 
     }
 }
