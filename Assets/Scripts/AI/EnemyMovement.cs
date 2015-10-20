@@ -23,7 +23,6 @@ namespace Assets.Scripts.AI
         private AudioSource _shotSource;
         private int _health = 100;
 
-        [Server]
         void Start ()
         {
             if (!isServer)
@@ -45,7 +44,7 @@ namespace Assets.Scripts.AI
             GameObject.FindGameObjectsWithTag("Waypoint");
         }
 
-        [Server]
+
         void Update()
         {
             if(!isServer)
@@ -55,7 +54,6 @@ namespace Assets.Scripts.AI
             _currentState = _patrolState;
         }
 
-        [Server]
         void OnTriggerStay(Collider other)
         {
             if (!isServer)
