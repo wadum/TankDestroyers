@@ -170,6 +170,12 @@ namespace Assets.Scripts
         }
 
         [Command]
+        public void CmdAddMissiles(int amount)
+        {
+            _mineAmount += amount;
+        }
+
+        [Command]
         public void CmdAddMines(int amount)
         {
             _mineAmount += amount;
