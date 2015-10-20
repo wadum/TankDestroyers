@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.Variables;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.AI
 {
-    public class EnemyMovement : MonoBehaviour
+    public class EnemyMovement : NetworkBehaviour
     {
 
         public int MsBetweenShots;
@@ -23,6 +23,7 @@ namespace Assets.Scripts.AI
         private AudioSource _shotSource;
         private int _health = 100;
 
+        [Server]
         void Start ()
         {
             InitiateSoundSettings();
@@ -41,6 +42,7 @@ namespace Assets.Scripts.AI
             GameObject.FindGameObjectsWithTag("Waypoint");
         }
 
+        [Server]
         void Update()
         {
             _currentState.ExecuteState();

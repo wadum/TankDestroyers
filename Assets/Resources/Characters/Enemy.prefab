@@ -30,6 +30,7 @@ GameObject:
   - 114: {fileID: 11452894}
   - 82: {fileID: 8259122}
   - 114: {fileID: 11400024}
+  - 114: {fileID: 11475084}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -360,6 +361,26 @@ MonoBehaviour:
   NumberOfWaypoints: 3
   TankShotSound: {fileID: 8300000, guid: 37f8a903f3347484d8d2596ae2f304ca, type: 3}
   TankShotVolume: .300000012
+--- !u!114 &11475084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: .25
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 1
+  m_MovementTheshold: 1
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 30
+  m_InterpolateMovement: 3
 --- !u!135 &13566628
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -398,7 +419,27 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_InterpolateRotation
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_MovementTheshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_InterpolateMovement
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SyncSpin
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177664}
