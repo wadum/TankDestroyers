@@ -128,9 +128,9 @@ namespace Assets.Scripts
 
         private void AddObstacles()
         {
-            for (int i = 0; i < NumberOfObstabcles; i++)
+            for (var i = 0; i < NumberOfObstabcles; i++)
             {
-                int dir = Random.Range(0, 3);
+                var dir = Random.Range(0, 3);
 
                 var k = Random.Range(0, _h);
                 var l = Random.Range(0, _w);
@@ -165,7 +165,7 @@ namespace Assets.Scripts
 
         private void AddWaypoints()
         {
-            for (int i = 0; i < NumberOfWaypoints; i++)
+            for (var i = 0; i < NumberOfWaypoints; i++)
             {
                 int x = 0, z = 0;
                 while (_map[x, z] != 0)
@@ -179,7 +179,7 @@ namespace Assets.Scripts
 
         private void AddPickUps()
         {
-            for (int i = 0; i < NumberOfWaypoints; i++)
+            for (var i = 0; i < NumberOfPickUps; i++)
             {
                 int x = 0, z = 0;
                 while (_map[x, z] != 0)
