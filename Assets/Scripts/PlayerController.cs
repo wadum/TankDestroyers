@@ -25,6 +25,12 @@ namespace Assets.Scripts
         public GameObject[] InactiveMines;
 
         [Space(10)]
+        [Header("Missile Settings")]
+        public int MissileStartAmount = 3;
+        public float MissileDamage = 50;
+        public GameObject[] InactiveMissiles;
+
+        [Space(10)]
         [Header("Camera")]
         public GameObject MyCamera;
         public GameObject FirstPerson;
@@ -41,6 +47,8 @@ namespace Assets.Scripts
         private float _health;
         [SyncVar]
         private int _mineAmount;
+        [SyncVar]
+        private int _missileAmount;
         public bool DisableControls = true;
 
         private BulletManager _weapon;
@@ -72,6 +80,7 @@ namespace Assets.Scripts
             _health = Health;
             _mineAmount = MineStartAmount;
             _mineBar = _firstPersonUi.transform.GetComponentsInChildren<UiMineController>().First(s => s.tag == "MinesBar");
+            _missileAmount = MissileStartAmount;
             //_mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
             UpdateCameraMode();
@@ -120,7 +129,10 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("e"))
             {
+                if (_missileAmount < 1)
+                    return;
                 CmdFireMissile(transform.position, transform.forward);
+                CmdAddMissiles(-1);
             }
             if (Input.GetKeyDown("space"))
             {
@@ -167,6 +179,12 @@ namespace Assets.Scripts
         public void CmdExplodeMine(GameObject mine)
         {
             mine.GetComponent<MineController>().RpcExplode();
+        }
+
+        [Command]
+        public void CmdAddMissiles(int amount)
+        {
+            _missileAmount += amount;
         }
 
         [Command]
