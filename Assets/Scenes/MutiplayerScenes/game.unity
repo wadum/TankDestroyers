@@ -87,6 +87,48 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 23800000, guid: 2bd2ef1438775514ba614ed90af70e6e, type: 2}
+--- !u!1001 &1289237636
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: .608761489
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: .793353319
+      objectReference: {fileID: 0}
+    - target: {fileID: 427942, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1380372583
 Prefab:
   m_ObjectHideFlags: 0
