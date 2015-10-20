@@ -42,12 +42,6 @@ namespace Assets.Scripts.Weapons
             return b;
         }
 
-        [Command]
-        public void CmdFireMissile(Vector3 origin, Vector3 direction)
-        {
-            RpcFireMissile(origin, direction);
-        }
-
         [ClientRpc]
         public void RpcFireMissile(Vector3 origin, Vector3 direction)
         {

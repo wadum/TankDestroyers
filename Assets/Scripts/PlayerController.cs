@@ -82,7 +82,7 @@ namespace Assets.Scripts
 
         void FixedUpdate()
         {
-            if (DisableControls) return;
+            if (DisableControls && !isLocalPlayer) return;
             if (Input.GetKey("a"))
                 _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
             if (Input.GetKey("d"))
@@ -93,12 +93,24 @@ namespace Assets.Scripts
                 _rb.AddForce(transform.forward * -MovementMagnitude);
         }
 
+        [Command]
+        public void CmdFireMissile(Vector3 origin, Vector3 direction)
+        {
+            _missiles.RpcFireMissile(origin, direction);
+        }
+
+        [Command]
+        public void CmdFireBullet(Vector3 origin, Vector3 direction)
+        {
+            _weapon.RpcFireWeapon(origin, direction);
+        }
+
         // Update is called once per frame
         [ClientCallback]
         void Update ()
         {
             UpdateHealthIndicators();
-            if (DisableControls) return;
+            if (DisableControls && !isLocalPlayer) return;
             if (Input.GetKeyDown("f"))
             {
                 FirstPersonMode = !FirstPersonMode;
@@ -106,7 +118,7 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("e"))
             {
-                _missiles.CmdFireMissile(transform.position, transform.forward);
+                CmdFireMissile(transform.position, transform.forward);
             }
             if (Input.GetKeyDown("space"))
             {
@@ -160,7 +172,7 @@ namespace Assets.Scripts
             MachineGunSound.Play();
             while (Input.GetKey("space"))
             {
-                _weapon.CmdFireWeapon(transform.position, transform.forward);
+                CmdFireBullet(transform.position, transform.forward);
                 yield return new WaitForSeconds(MachineGunCd);
             }
             MachineGunSound.Stop();
