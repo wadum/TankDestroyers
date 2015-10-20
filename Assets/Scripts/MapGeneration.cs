@@ -271,7 +271,6 @@ namespace Assets.Scripts
                             wp.transform.parent = waypointParrent;
                             break;
                         case 3:
-                            Debug.Log(_tankRotations[i + ":" + j]);
                             var pyRotation = _tankRotations[i + ":" + j] * 90;
                             var proration = Quaternion.Euler(new Vector3(0, pyRotation, 0));
                             var pHanger = Instantiate(Hangar).transform;
@@ -281,7 +280,6 @@ namespace Assets.Scripts
                             NetworkServer.Spawn(pHanger.gameObject);
                             break;
                         case 4:
-                            Debug.Log(_tankRotations[i + ":" + j]);
                             var yRotation = _tankRotations[i + ":" + j] * 90;
                             var roration = Quaternion.Euler(new Vector3(0, yRotation, 0));
 
