@@ -49,6 +49,7 @@ namespace Assets.Scripts.AI
             _currentState = _patrolState;
         }
 
+        [Server]
         void OnTriggerStay(Collider other)
         {
             if(other.tag != Constants.Tags.Player)
