@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Assets.Scripts.Variables;
-using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
 using Random = UnityEngine.Random;
@@ -55,6 +52,7 @@ namespace Assets.Scripts
             AddTanks();
             GenerateSurrondings();
             AddPickUps();
+            AddEdges(); // Just to be sure.
             DrawMap();
         }
 
@@ -227,7 +225,6 @@ namespace Assets.Scripts
                         front = -1;
                     }
                 }
-
                 
                 PlaceHangar(z, x, dir, 4);
             }
