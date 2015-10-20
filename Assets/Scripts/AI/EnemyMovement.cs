@@ -32,7 +32,7 @@ namespace Assets.Scripts.AI
 
             var allWaypoints = GameObject.FindGameObjectsWithTag(Constants.Tags.Waypoint).ToList();
             var selectedWapoints = allWaypoints.Select(go => go.transform)
-                .OrderBy(t => (int)Random.value * 100)
+                .OrderBy(t => Random.Range(0, allWaypoints.Count))
                 .Take(NumberOfWaypoints)
                 .ToList();
 
