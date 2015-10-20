@@ -56,24 +56,24 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 2
+    i1: 51
+    i2: 214
+    i3: 231
+    i4: 99
+    i5: 239
+    i6: 57
+    i7: 4
+    i8: 11
+    i9: 72
+    i10: 198
+    i11: 228
+    i12: 116
+    i13: 171
+    i14: 218
+    i15: 171
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11485822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,6 +100,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: BulletSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPlayerAuthority
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
