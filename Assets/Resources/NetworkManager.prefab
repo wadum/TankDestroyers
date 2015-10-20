@@ -56,9 +56,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
+  m_ScriptCRCCheck: 1
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
   m_LogLevel: 2
@@ -80,6 +83,7 @@ MonoBehaviour:
   - {fileID: 121358, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
   - {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
   - {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
+  - {fileID: 134086, guid: 7e9a168b395a4a44cb504dde91829c64, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
