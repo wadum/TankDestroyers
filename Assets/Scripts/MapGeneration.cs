@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace Assets.Scripts
         public override void OnStartServer()
         {
             base.OnStartServer();
+            _tankRotations = new Dictionary<string, int>();
             GenerateMap();
             AddWaypoints();
             AddTanks();
@@ -71,8 +73,38 @@ namespace Assets.Scripts
             _h = _map.GetLength(0);
             _w = _map.GetLength(1);
 
+            PlaceHanger(_h - 3, _w - 3, 1, 3);
+            PlaceHanger(2, _w - 3, 3, 3);
+            PlaceHanger(_h - 3, 2, 0, 3);
+            PlaceHanger(2, 2, 0, 3);
+
             AddEdges();
             AddObstacles();
+        }
+
+        private void PlaceHanger(int x, int z, int dir, int id)
+        {
+            _map[x, z] = id;
+            _tankRotations[x + ":" + z] = dir;
+            switch (dir)
+            {
+                    case 0:
+                        _map[x, z + 1] = 5;
+                        _map[x, z + 2] = 5;
+                        break;
+                    case 1:
+                        _map[x + 1, z] = 5;
+                        _map[x + 2, z] = 5;
+                        break;
+                    case 2:
+                        _map[x, z - 1] = 5;
+                        _map[x, z - 2] = 5;
+                        break;
+                    case 3:
+                        _map[x - 1, z] = 5;
+                        _map[x - 2, z] = 5;
+                        break;
+            }
         }
 
         private void AddEdges()
@@ -143,7 +175,7 @@ namespace Assets.Scripts
 
         private void AddTanks()
         {
-            _tankRotations = new Dictionary<string, int>();
+            
             for (var i = 0; i < NumberOfEnemies; i++)
             {
                 var dir = Random.Range(0, 3);
@@ -178,28 +210,8 @@ namespace Assets.Scripts
                     }
                 }
 
-                _tankRotations.Add(x + ":" + z, dir);
-                _map[x, z] = i == 0 ? 3 : 4;
-
-                switch (dir)
-                {
-                    case 0:
-                        _map[x, z + 1] = 5;
-                        _map[x, z + 2] = 5;
-                        break;
-                    case 1:
-                        _map[x + 1, z] = 5;
-                        _map[x + 2, z] = 5;
-                        break;
-                    case 2:
-                        _map[x, z - 1] = 5;
-                        _map[x, z - 2] = 5;
-                        break;
-                    case 3:
-                        _map[x - 1, z] = 5;
-                        _map[x - 2, z] = 5;
-                        break;
-                }
+                
+                PlaceHanger(z, x, dir, 4);
             }
         }
 
@@ -245,6 +257,16 @@ namespace Assets.Scripts
                             NetworkServer.Spawn(wp);
                             break;
                         case 3:
+                            var pyRotation = _tankRotations[i + ":" + j] * 90;
+                            var proration = new Quaternion(0, pyRotation, 0, 0);
+                            var pHanger = Instantiate(Hangar).transform;
+                            pHanger.position = new Vector3(x, 0, z);;
+                            pHanger.rotation = proration;
+
+                            Debug.Log("Pos:" + i + ":" + j + "Coords:" + new Vector3(x, 0, z));
+
+                            pHanger.parent = hangarParrent;
+                            NetworkServer.Spawn(pHanger.gameObject);
                             break;
                         case 4:
                             var yRotation = _tankRotations[i + ":" + j] * 90;
