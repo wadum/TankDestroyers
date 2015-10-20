@@ -132,7 +132,7 @@ namespace Assets.Scripts
                     return;
 
                 Cmd_PlaceMine();
-                _mineAmount--;
+                CmdAddMines(-1);
             }
         }
 
@@ -146,19 +146,31 @@ namespace Assets.Scripts
             NetworkServer.Spawn(mine.gameObject);
         }
 
-        public void HitByBullet()
-        {
-            StartCoroutine(TakeDamage(10));
-        }
-
-        public bool HitByMine()
+        public bool HitByBullet()
         {
             if (isLocalPlayer)
-                StartCoroutine(TakeDamage(MineDamage));
+                CmdTakeDamage(10);
             return isLocalPlayer;
         }
 
-        public void AddMines(int amount)
+        public bool HitByMine(GameObject mine)
+        {
+            if (isLocalPlayer)
+            {
+                CmdTakeDamage(MineDamage);
+                CmdExplodeMine(mine);
+            }
+            return isLocalPlayer;
+        }
+
+        [Command]
+        public void CmdExplodeMine(GameObject mine)
+        {
+            mine.GetComponent<MineController>().RpcExplode();
+        }
+
+        [Command]
+        public void CmdAddMines(int amount)
         {
             _mineAmount += amount;
         }
@@ -180,14 +192,10 @@ namespace Assets.Scripts
             MachineGunSound.Stop();
         }
 
-        private IEnumerator TakeDamage(float amount)
+        [Command]
+        private void CmdTakeDamage(float amount)
         {
             _health -= amount;
-            UpdateHealthIndicators();
-            if (_health >= 1) yield break;
-            DisableControls = true;
-            yield return new WaitForSeconds(3);
-            Application.LoadLevel(Application.loadedLevel);
         }
 
         private void UpdateHealthIndicators()

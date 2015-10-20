@@ -13,7 +13,7 @@ namespace Assets.Scripts.PickUps
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag != Constants.Tags.Player) return;
-            other.gameObject.GetComponent<PlayerController>().AddMines(Amount);
+            other.gameObject.GetComponent<PlayerController>().CmdAddMines(Amount);
             gameObject.GetComponent<BoxCollider>().enabled = false;
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(PickUp());
