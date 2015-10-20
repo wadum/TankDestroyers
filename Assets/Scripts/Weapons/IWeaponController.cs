@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Weapons
 {
-    public interface IWeaponController
+    public abstract class WeaponController: NetworkBehaviour
     {
 
-        void FireWeapon(Vector3 origin, Vector3 direction);
+        [ClientRpc]
+        public abstract void RpcFireWeapon(Vector3 origin, Vector3 direction);
+
+        [Command]
+        public void CmdFireWeapon(Vector3 origin, Vector3 direction)
+        {
+            RpcFireWeapon(origin, direction);
+        }
     }
 }

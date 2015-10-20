@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -138,7 +136,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11446584, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
       propertyPath: m_SpawnPrefabs.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 414338, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
       propertyPath: m_LocalPosition.x
@@ -196,6 +194,22 @@ Prefab:
       propertyPath: m_UseSimulator
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11446584, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 187504, guid: d75c3a7dc26485143848794887254654, type: 2}
+    - target: {fileID: 11446584, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 119462, guid: 025af7c53be4b464b9c589e35f4e177b, type: 2}
+    - target: {fileID: 11446584, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 114050, guid: 0233d6e763ef39040b48c6e474abdaab, type: 2}
+    - target: {fileID: 11446584, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 121358, guid: fb981d0aec956304cb088fcd7d92d90d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82669201614369e45bb6efa4b19b9bd1, type: 2}
   m_IsPrefabParent: 0

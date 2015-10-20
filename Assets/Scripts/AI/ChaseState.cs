@@ -12,7 +12,7 @@ namespace Assets.Scripts.AI
         public Transform Target { get; set; }
 
         private readonly NavMeshAgent _nav;
-        private readonly IWeaponController _bc;
+        private readonly WeaponController _bc;
         private readonly int _msBetweenShots;
         private float _nextTimeShotAllowed = 0;
         private readonly AudioSource _shotSource;
@@ -50,7 +50,7 @@ namespace Assets.Scripts.AI
             if(Time.time <= _nextTimeShotAllowed)
                 return;
 
-            _bc.FireWeapon(_nav.transform.position, direction);
+            _bc.RpcFireWeapon(_nav.transform.position, direction);
             _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
             _shotSource.Play();
         }

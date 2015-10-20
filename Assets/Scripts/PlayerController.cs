@@ -94,6 +94,7 @@ namespace Assets.Scripts
         }
 
         // Update is called once per frame
+        [ClientCallback]
         void Update ()
         {
             UpdateHealthIndicators();
@@ -105,7 +106,7 @@ namespace Assets.Scripts
             }
             if (Input.GetKeyDown("e"))
             {
-                _missiles.FireWeapon(transform.position, transform.forward);
+                _missiles.CmdFireMissile(transform.position, transform.forward);
             }
             if (Input.GetKeyDown("space"))
             {
@@ -159,7 +160,7 @@ namespace Assets.Scripts
             MachineGunSound.Play();
             while (Input.GetKey("space"))
             {
-                _weapon.FireWeapon(transform.position, transform.forward);
+                _weapon.CmdFireWeapon(transform.position, transform.forward);
                 yield return new WaitForSeconds(MachineGunCd);
             }
             MachineGunSound.Stop();

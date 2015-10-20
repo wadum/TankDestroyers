@@ -59,10 +59,8 @@ namespace Assets.Scripts
             Instantiate(Light);
             NetworkServer.Spawn(Light);
 
-            var gs = new GameObject("GameScripts");
-            gs.tag = Constants.Tags.GameScripts;
-            gs.AddComponent<BulletManager>().BulletSpeed = 0.5f;
-            gs.AddComponent<MissileManager>().MissileSpeed = 0.5f;
+            var gs = (GameObject)Instantiate(Resources.Load("GameScripts"));
+            NetworkServer.Spawn(gs);
         }
 
         private void GenerateMap()

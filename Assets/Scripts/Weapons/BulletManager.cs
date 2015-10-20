@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Assets.Scripts.Weapons
 {
-    public class BulletManager : MonoBehaviour, IWeaponController
+    public class BulletManager : WeaponController
     {
         public float BulletSpeed = 0.5f;    
         
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Weapons
             return b;
         }
 
-        public void FireWeapon(Vector3 origin, Vector3 direction)
+        public override void RpcFireWeapon(Vector3 origin, Vector3 direction)
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;

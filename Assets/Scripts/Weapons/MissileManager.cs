@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.Weapons
 {
-    public class MissileManager : MonoBehaviour, IWeaponController {
+    public class MissileManager : NetworkBehaviour {
 
         public float MissileSpeed = 0.1f;
 
@@ -41,14 +42,20 @@ namespace Assets.Scripts.Weapons
             return b;
         }
 
-        public void FireWeapon(Vector3 origin, Vector3 direction)
+        [Command]
+        public void CmdFireMissile(Vector3 origin, Vector3 direction)
+        {
+            RpcFireMissile(origin, direction);
+        }
+
+        [ClientRpc]
+        public void RpcFireMissile(Vector3 origin, Vector3 direction)
         {
             var missile = GetMissile();
             missile.transform.position = origin;
-            
+
             missile.transform.Translate(direction * 3.5f);
             missile.transform.Translate(Vector3.up * 1.5f);
-            //missile.transform.localRotation = Quaternion.Euler(direction);
             missile.transform.GetChild(0).localRotation = Quaternion.LookRotation(direction, Vector3.up);
             missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed);
         }
