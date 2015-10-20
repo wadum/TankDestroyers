@@ -76,9 +76,9 @@ namespace Assets.Scripts
             _w = _map.GetLength(1);
 
             PlaceHangar(_h - 3, _w - 3, 3, 3);
-            PlaceHangar(2, _w - 3, 3, 3);
-            PlaceHangar(_h - 3, 2, 0, 3);
-            PlaceHangar(2, 2, 0, 3);
+            PlaceHangar(2, _w - 3, 2, 3);
+            PlaceHangar(_h - 3, 1, 0, 3);
+            PlaceHangar(2, 2, 1, 3);
 
             AddEdges();
             AddObstacles();
@@ -271,8 +271,9 @@ namespace Assets.Scripts
                             wp.transform.parent = waypointParrent;
                             break;
                         case 3:
+                            Debug.Log(_tankRotations[i + ":" + j]);
                             var pyRotation = _tankRotations[i + ":" + j] * 90;
-                            var proration = new Quaternion(0, pyRotation, 0, 0);
+                            var proration = Quaternion.Euler(new Vector3(0, pyRotation, 0));
                             var pHanger = Instantiate(Hangar).transform;
                             pHanger.position = new Vector3(x, 0, z);;
                             pHanger.rotation = proration;
@@ -280,8 +281,9 @@ namespace Assets.Scripts
                             NetworkServer.Spawn(pHanger.gameObject);
                             break;
                         case 4:
+                            Debug.Log(_tankRotations[i + ":" + j]);
                             var yRotation = _tankRotations[i + ":" + j] * 90;
-                            var roration = new Quaternion(0,yRotation, 0,0);
+                            var roration = Quaternion.Euler(new Vector3(0, yRotation, 0));
 
                             var tank = Instantiate(_map[i,j] == 3 ? Player : Enemy).transform;
                             tank.position = new Vector3(x, 0, z);
