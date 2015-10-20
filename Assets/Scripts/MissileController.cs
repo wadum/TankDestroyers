@@ -23,7 +23,7 @@ namespace Assets.Scripts
                         StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
-                    other.transform.parent.gameObject.GetComponent<EnemyMovement>().HitByBullet();
+                    other.GetComponent<EnemyMovement>().HitByBullet();
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Wall":
