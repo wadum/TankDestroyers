@@ -26,14 +26,15 @@ GameObject:
   m_Component:
   - 4: {fileID: 456210}
   - 195: {fileID: 19573664}
-  - 135: {fileID: 13566628}
   - 114: {fileID: 11452894}
   - 82: {fileID: 8259122}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11475084}
+  - 54: {fileID: 5479096}
+  - 65: {fileID: 6502182}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,11 +65,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 448766}
   - 95: {fileID: 9573822}
-  - 54: {fileID: 5407968}
-  - 65: {fileID: 6505528}
+  - 135: {fileID: 13537190}
   m_Layer: 0
   m_Name: Tank_pref
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,33 +186,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195882}
   m_Mesh: {fileID: 4300002, guid: 2f36ff213ce19454f80e5be2bd75e2fd, type: 3}
---- !u!54 &5407968
+--- !u!54 &5479096
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196658}
+  m_GameObject: {fileID: 177664}
   serializedVersion: 2
-  m_Mass: 3
+  m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 20
+  m_AngularDrag: 3
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 84
   m_CollisionDetection: 0
---- !u!65 &6505528
+--- !u!65 &6502182
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196658}
+  m_GameObject: {fileID: 177664}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.42000008, y: 2.1500001, z: 2.82999992}
-  m_Center: {x: -.129999995, y: 1.19000006, z: 0}
+  m_Size: {x: 2.23000002, y: 1.96000004, z: 5.19000006}
+  m_Center: {x: 0, y: 1.08000004, z: -.239999995}
 --- !u!82 &8259122
 AudioSource:
   m_ObjectHideFlags: 1
@@ -374,25 +374,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: .0344827585
-  m_SyncRotationAxis: 2
+  m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 1
   m_MovementTheshold: 1
   m_SnapThreshold: 5
   m_InterpolateRotation: 30
   m_InterpolateMovement: 5
---- !u!135 &13566628
+--- !u!135 &13537190
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177664}
+  m_GameObject: {fileID: 196658}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
-  m_Center: {x: 0, y: 0, z: 8}
+  m_Radius: 15
+  m_Center: {x: 8, y: 0, z: 0}
 --- !u!195 &19573664
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -426,7 +426,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SendInterval
-      value: .0344827585
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_MovementTheshold
@@ -443,6 +443,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TransformSyncMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
