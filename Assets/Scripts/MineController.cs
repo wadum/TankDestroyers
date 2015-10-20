@@ -10,14 +10,19 @@ namespace Assets.Scripts
         public ParticleSystem MineExplosion;
 
         public AudioSource placing;
+        public AudioSource ExplosionSound;
+
+        void Start()
+        {
+            placing.Play();
+        }
 
         void OnTriggerEnter(Collider other)
         {
             switch (other.tag)
             {
                 case "Player":
-                    if(other.gameObject.GetComponent<PlayerController>().HitByMine())
-                        StartCoroutine(Hit());
+                    other.gameObject.GetComponent<PlayerController>().HitByMine(gameObject);
                     break;
                 case "Enemy":
                     StartCoroutine(Hit());
@@ -25,9 +30,16 @@ namespace Assets.Scripts
             }
         }
 
+        [ClientRpc]
+        public void RpcExplode()
+        {
+            StartCoroutine(Hit());
+        }
+
         IEnumerator Hit()
         {
             MineExplosion.Play();
+            ExplosionSound.Play();
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(2);

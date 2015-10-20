@@ -19,20 +19,20 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    other.GetComponent<PlayerController>().HitByBullet();
-                    StartCoroutine(MissileHit());
+                    if(other.GetComponent<PlayerController>().HitByBullet())
+                        StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
                     other.transform.parent.gameObject.GetComponent<EnemyMovement>().HitByBullet();
-                    StartCoroutine(MissileHit());
+                    StartCoroutine(ExplodeMissile());
                     break;
                 case "Wall":
-                    StartCoroutine(MissileHit());
+                    StartCoroutine(ExplodeMissile());
                     break;
             }
         }
 
-        private IEnumerator MissileHit()
+        private IEnumerator ExplodeMissile()
         {
             _moving = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
