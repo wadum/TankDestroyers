@@ -77,16 +77,16 @@ namespace Assets.Scripts
             _h = _map.GetLength(0);
             _w = _map.GetLength(1);
 
-            PlaceHanger(_h - 3, _w - 3, 1, 3);
-            PlaceHanger(2, _w - 3, 3, 3);
-            PlaceHanger(_h - 3, 2, 0, 3);
-            PlaceHanger(2, 2, 0, 3);
+            PlaceHangar(_h - 3, _w - 3, 3, 3);
+            PlaceHangar(2, _w - 3, 3, 3);
+            PlaceHangar(_h - 3, 2, 0, 3);
+            PlaceHangar(2, 2, 0, 3);
 
             AddEdges();
             AddObstacles();
         }
 
-        private void PlaceHanger(int x, int z, int dir, int id)
+        private void PlaceHangar(int x, int z, int dir, int id)
         {
             _map[x, z] = id;
             _tankRotations[x + ":" + z] = dir;
@@ -134,7 +134,7 @@ namespace Assets.Scripts
 
                 var k = Random.Range(0, _h);
                 var l = Random.Range(0, _w);
-                while (Random.value < 0.8f)
+                while (Random.value < 0.8f && _map[k, l] == 0)
                 {
                     _map[k, l] = 1;
                     if (Random.value > 0.8f)
@@ -229,7 +229,7 @@ namespace Assets.Scripts
                 }
 
                 
-                PlaceHanger(z, x, dir, 4);
+                PlaceHangar(z, x, dir, 4);
             }
         }
 
@@ -280,9 +280,6 @@ namespace Assets.Scripts
                             var pHanger = Instantiate(Hangar).transform;
                             pHanger.position = new Vector3(x, 0, z);;
                             pHanger.rotation = proration;
-
-                            Debug.Log("Pos:" + i + ":" + j + "Coords:" + new Vector3(x, 0, z));
-
                             pHanger.parent = hangarParrent;
                             NetworkServer.Spawn(pHanger.gameObject);
                             break;

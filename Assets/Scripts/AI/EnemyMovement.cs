@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using Assets.Scripts.Variables;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.AI
             if (!isServer)
                 return;
 
+            GetComponent<NavMeshAgent>().enabled = true;
             InitiateSoundSettings();
 
             var allWaypoints = GameObject.FindGameObjectsWithTag(Constants.Tags.Waypoint).ToList();
