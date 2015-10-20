@@ -26,6 +26,9 @@ namespace Assets.Scripts.AI
         [Server]
         void Start ()
         {
+            if (!isServer)
+                return;
+
             InitiateSoundSettings();
 
             var allWaypoints = GameObject.FindGameObjectsWithTag(Constants.Tags.Waypoint).ToList();
@@ -45,6 +48,9 @@ namespace Assets.Scripts.AI
         [Server]
         void Update()
         {
+            if(!isServer)
+                return;
+
             _currentState.ExecuteState();
             _currentState = _patrolState;
         }
@@ -52,6 +58,9 @@ namespace Assets.Scripts.AI
         [Server]
         void OnTriggerStay(Collider other)
         {
+            if (!isServer)
+                return;
+
             if(other.tag != Constants.Tags.Player)
                 return;
             
