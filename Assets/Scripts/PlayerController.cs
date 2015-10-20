@@ -124,6 +124,8 @@ namespace Assets.Scripts
         [ClientCallback]
         void Update ()
         {
+            if (_health < 1)
+                Respawn();
             SetAvailableMines();
             UpdateHealthIndicators();
             if (DisableControls && !isLocalPlayer) return;
@@ -219,12 +221,9 @@ namespace Assets.Scripts
         private void CmdTakeDamage(float amount)
         {
             _health -= amount;
-            if (_health < 1)
-                RpcRespawn();
         }
 
-        [ClientRpc]
-        public void RpcRespawn()
+        public void Respawn()
         {
             transform.position = _spawnPosition;
             transform.rotation = _spawnRotation;
