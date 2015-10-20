@@ -16,8 +16,8 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    StartCoroutine(Hit());
-                    other.gameObject.GetComponent<PlayerController>().HitByMine();
+                    if(other.gameObject.GetComponent<PlayerController>().HitByMine())
+                        StartCoroutine(Hit());
                     break;
                 case "Enemy":
                     StartCoroutine(Hit());

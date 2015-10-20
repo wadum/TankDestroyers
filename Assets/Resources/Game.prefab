@@ -82,13 +82,33 @@ MonoBehaviour:
   NumberOfEnemies: 10
   Waypoint: {fileID: 165758, guid: 81f368a79117c8e499f8a193a4ea83fa, type: 2}
   NumberOfWaypoints: 50
+  PickUps:
+  - {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
+  - {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
+  NumberOfPickUps: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: PickUps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PickUps.Array.data[0]
+      value: 
+      objectReference: {fileID: 134086, guid: 2a1371ffd23eaf14ba3a1f3c3d01095c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: PickUps.Array.data[1]
+      value: 
+      objectReference: {fileID: 134086, guid: 68adbe8a0676b0846afb49c4d1e33cff, type: 2}
+    - target: {fileID: 0}
+      propertyPath: NumberOfPickUps
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121358}

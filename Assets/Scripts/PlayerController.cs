@@ -39,6 +39,7 @@ namespace Assets.Scripts
         private Rigidbody _rb;
         [SyncVar]
         private float _health;
+        [SyncVar]
         private int _mineAmount;
         public bool DisableControls = true;
 
@@ -109,6 +110,7 @@ namespace Assets.Scripts
         [ClientCallback]
         void Update ()
         {
+            SetAvailableMines();
             UpdateHealthIndicators();
             if (DisableControls && !isLocalPlayer) return;
             if (Input.GetKeyDown("f"))
@@ -131,7 +133,6 @@ namespace Assets.Scripts
 
                 Cmd_PlaceMine();
                 _mineAmount--;
-                SetAvailableMines(_mineAmount);
             }
         }
 
@@ -150,15 +151,16 @@ namespace Assets.Scripts
             StartCoroutine(TakeDamage(10));
         }
 
-        public void HitByMine()
+        public bool HitByMine()
         {
-            StartCoroutine(TakeDamage(MineDamage));
+            if (isLocalPlayer)
+                StartCoroutine(TakeDamage(MineDamage));
+            return isLocalPlayer;
         }
 
         public void AddMines(int amount)
         {
             _mineAmount += amount;
-            SetAvailableMines(_mineAmount);
         }
 
         public void AddHealth(int amount)
@@ -206,12 +208,13 @@ namespace Assets.Scripts
             }
         }
 
-        private void SetAvailableMines(int amount)
+        private void SetAvailableMines()
         {
-            _mineBar.SetAvailableMines(_mineAmount);
+            if (isLocalPlayer && FirstPersonMode)
+                _mineBar.SetAvailableMines(_mineAmount);
             for (var i = 0; i < InactiveMines.Length; i++)
             {
-                InactiveMines[i].SetActive(i < amount);
+                InactiveMines[i].SetActive(i < _mineAmount);
             }
         }
 
