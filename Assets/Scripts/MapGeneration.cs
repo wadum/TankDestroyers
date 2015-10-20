@@ -269,7 +269,6 @@ namespace Assets.Scripts
                             var wp = Instantiate(Waypoint);
                             wp.transform.position = new Vector3(x, 0, z);
                             wp.transform.parent = waypointParrent;
-                            NetworkServer.Spawn(wp);
                             break;
                         case 3:
                             var pyRotation = _tankRotations[i + ":" + j] * 90;
