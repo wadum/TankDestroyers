@@ -10,6 +10,7 @@
             public static string GameScripts = "GameScripts";
             public static string Mine = "Mine";
             public static string Waypoint = "Waypoint";
+            public static string TimerBar = "TimerBar";
         }
 
         public static class MapGeneration

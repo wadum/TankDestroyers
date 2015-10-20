@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.PickUps;
 using Assets.Scripts.UI;
+using Assets.Scripts.Variables;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -229,7 +230,7 @@ namespace Assets.Scripts
             MyCamera.transform.localPosition = FirstPersonMode
                     ? FirstPerson.transform.localPosition
                     : ThirdPerson.transform.localPosition;
-            foreach (var cr in  _firstPersonUi.GetComponentsInChildren<CanvasRenderer>())
+            foreach (var cr in _firstPersonUi.GetComponentsInChildren<CanvasRenderer>().Where(s => s.tag != Constants.Tags.TimerBar))
             {
                 cr.SetAlpha(FirstPersonMode ? 1 : 0);
             }
