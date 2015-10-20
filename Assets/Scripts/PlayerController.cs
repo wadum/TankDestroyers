@@ -59,6 +59,8 @@ namespace Assets.Scripts
         private RadialSlider _reloadBar;
         private UiMineController _mineBar;
         private GameObject _firstPersonUi;
+        private Vector3 _spawnPosition;
+        private Quaternion _spawnRotation;
 
         void Start()
         {
@@ -69,7 +71,8 @@ namespace Assets.Scripts
                 MyCamera.SetActive(true);
             }
 
-
+            _spawnRotation = transform.rotation;
+            _spawnPosition = transform.position;
             HealthIndicator.SetHealth(100);
             _firstPersonUi = (GameObject)Instantiate(Resources.Load("UI"));
             _healthBar =
@@ -216,6 +219,18 @@ namespace Assets.Scripts
         private void CmdTakeDamage(float amount)
         {
             _health -= amount;
+            if (_health < 1)
+                RpcRespawn();
+        }
+
+        [ClientRpc]
+        public void RpcRespawn()
+        {
+            transform.position = _spawnPosition;
+            transform.rotation = _spawnRotation;
+            _mineAmount = MineStartAmount;
+            _missileAmount = MissileStartAmount;
+            _health = Health;
         }
 
         private void UpdateHealthIndicators()
