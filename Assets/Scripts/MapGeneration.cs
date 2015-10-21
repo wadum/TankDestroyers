@@ -226,7 +226,7 @@ namespace Assets.Scripts
                     }
                 }
                 
-                PlaceHangar(z, x, dir, 4);
+                PlaceHangar(x, z, dir, 4);
             }
         }
 
