@@ -215,6 +215,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 486204}
+  - 114: {fileID: 11404886}
+  - 114: {fileID: 11426594}
+  - 114: {fileID: 11440084}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -391,6 +394,20 @@ Transform:
   - {fileID: 22480444}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11404886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
 --- !u!114 &11407186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,6 +593,24 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11426594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: .5
+  m_AllowActivationOnMobileDevice: 0
 --- !u!114 &11429262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,6 +722,18 @@ MonoBehaviour:
     New Text
 
     New Text'
+--- !u!114 &11440084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowActivationOnStandalone: 0
 --- !u!114 &11441432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -947,7 +994,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -955,7 +1002,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Time left
+  m_Text: 'Player 1
+
+    Time left'
 --- !u!114 &11486392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1523,10 +1572,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22480444}
   m_RootOrder: 0
-  m_AnchorMin: {x: .840000033, y: .913334668}
-  m_AnchorMax: {x: .975000024, y: .95321244}
-  m_AnchoredPosition: {x: .200012207, y: -.299987793}
-  m_SizeDelta: {x: 7, y: 1}
+  m_AnchorMin: {x: .840000033, y: .88666749}
+  m_AnchorMax: {x: .975000024, y: .973222554}
+  m_AnchoredPosition: {x: .200012207, y: -.399999619}
+  m_SizeDelta: {x: 7, y: 1.70000076}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22498504
 RectTransform:

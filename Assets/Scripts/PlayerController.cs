@@ -318,5 +318,11 @@ namespace Assets.Scripts
                 enabled = false;
         }
 
+
+        [Command]
+        public void CmdRestartLevel()
+        {
+            NetworkManager.singleton.ServerChangeScene("game");
+        }
     }
 }
