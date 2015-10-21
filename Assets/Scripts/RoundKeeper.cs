@@ -24,7 +24,7 @@ public class RoundKeeper : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        _endTime = Time.time + 15;
+        _endTime = Time.time + 60*5;
     }
 
     // Update is called once per frame
