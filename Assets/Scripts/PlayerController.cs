@@ -349,7 +349,7 @@ namespace Assets.Scripts
         [ClientRpc]
         public void RpcRespawn()
         {
-            Respawn();
+            CmdTakeDamage(100, 0);
         }
 
         [Command]

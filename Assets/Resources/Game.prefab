@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeLeft: 0
   ScoreText: 
-  GameLength: 600
+  GameLength: 10
 --- !u!114 &11446756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroundPlane: {fileID: 172898, guid: b6d1bb49d49243447bd0d7b9eb65d244, type: 2}
-  Light: {fileID: 103634, guid: 0ee55f1083c6bcc4d86f2881803014e9, type: 2}
   Wall: {fileID: 107566, guid: 3de312a3898e92345825bb578f01deaf, type: 2}
   NumberOfObstabcles: 100
   Player: {fileID: 131308, guid: b10e0adbfe4cc06449d8b2061899d3d3, type: 2}
@@ -131,7 +130,7 @@ Prefab:
       objectReference: {fileID: 134086, guid: 7e9a168b395a4a44cb504dde91829c64, type: 2}
     - target: {fileID: 0}
       propertyPath: GameLength
-      value: 600
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
