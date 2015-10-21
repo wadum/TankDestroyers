@@ -119,6 +119,7 @@ namespace Assets.Scripts.AI
         [ClientRpc]
         private void RpcReset()
         {
+            RpcSetHealthOnIndicator(_health);
             StartCoroutine(ResetClient());
         }
 
