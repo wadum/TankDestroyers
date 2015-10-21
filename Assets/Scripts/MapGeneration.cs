@@ -14,7 +14,6 @@ namespace Assets.Scripts
 
         [Header("Surroundings")]
         public GameObject GroundPlane;
-        public GameObject Light;
 
         [Header("Obstacles")]
         public GameObject Wall;
@@ -60,8 +59,6 @@ namespace Assets.Scripts
         {
             GroundPlane = Instantiate(GroundPlane);
             NetworkServer.Spawn(GroundPlane);
-            Instantiate(Light);
-            NetworkServer.Spawn(Light);
 
             var gs = (GameObject)Instantiate(Resources.Load("GameScripts"));
             NetworkServer.Spawn(gs);

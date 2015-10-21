@@ -2533,6 +2533,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -2602,6 +2603,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -2671,6 +2673,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -2740,6 +2743,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -2809,6 +2813,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -3053,10 +3058,10 @@ MonoBehaviour:
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 1
-  m_MovementTheshold: 1
+  m_MovementTheshold: .00999999978
   m_SnapThreshold: 5
   m_InterpolateRotation: 30
-  m_InterpolateMovement: 3
+  m_InterpolateMovement: 2
 --- !u!114 &11493660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10635,7 +10640,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_InterpolateMovement
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SnapThreshold
@@ -10651,7 +10656,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_MovementTheshold
-      value: 1
+      value: .00999999978
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_InterpolateRotation
