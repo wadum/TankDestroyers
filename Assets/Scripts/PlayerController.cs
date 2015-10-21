@@ -182,7 +182,7 @@ namespace Assets.Scripts
         public bool HitByBullet(int damage, short owner)
         {
             if (isLocalPlayer)
-                CmdTakeDamage(10, owner);
+                CmdTakeDamage(damage, owner);
             return isLocalPlayer;
         }
 
