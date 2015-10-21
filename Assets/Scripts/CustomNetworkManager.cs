@@ -29,6 +29,7 @@ namespace Assets.Scripts
 
             }
 
+            player.GetComponent<PlayerController>().PlayerName = "Player " + NumberOfPlayers;
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
         }
 

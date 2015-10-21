@@ -7,12 +7,12 @@ namespace Assets.Scripts.Weapons
     {
 
         [ClientRpc]
-        public abstract void RpcFireWeapon(Vector3 origin, Vector3 direction);
+        public abstract void RpcFireWeapon(Vector3 origin, Vector3 direction, short owner);
 
         [Command]
-        public void CmdFireWeapon(Vector3 origin, Vector3 direction)
+        public void CmdFireWeapon(Vector3 origin, Vector3 direction, short owner)
         {
-            RpcFireWeapon(origin, direction);
+            RpcFireWeapon(origin, direction, owner);
         }
     }
 }

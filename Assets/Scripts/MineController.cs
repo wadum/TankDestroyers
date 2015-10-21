@@ -11,6 +11,8 @@ namespace Assets.Scripts
 
         public AudioSource placing;
         public AudioSource ExplosionSound;
+        [SyncVar]
+        public short Owner;
 
         void Start()
         {
@@ -22,7 +24,7 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    other.gameObject.GetComponent<PlayerController>().HitByMine(gameObject);
+                    other.gameObject.GetComponent<PlayerController>().HitByMine(gameObject, Owner);
                     break;
                 case "Enemy":
                     StartCoroutine(Hit());

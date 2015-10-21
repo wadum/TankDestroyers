@@ -40,7 +40,7 @@ namespace Assets.Scripts.Weapons
             return b;
         }
 
-        public override void RpcFireWeapon(Vector3 origin, Vector3 direction)
+        public override void RpcFireWeapon(Vector3 origin, Vector3 direction, short owner)
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Weapons
             bullet.transform.Translate(Vector3.up * 1.5f);
             bullet.transform.Translate(Vector3.right * -.35f);
 
-            bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed);
+            bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed, owner);
         }
 
         

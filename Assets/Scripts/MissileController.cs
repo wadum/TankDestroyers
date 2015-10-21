@@ -11,6 +11,8 @@ namespace Assets.Scripts
         public ParticleSystem Explosion;
         public AudioSource Shoot;
         public AudioSource Hit;
+        public short Owner;
+
 
         private bool _moving = true;
 
@@ -19,7 +21,7 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    if(other.GetComponent<PlayerController>().HitByBullet())
+                    if (other.GetComponent<PlayerController>().HitByBullet(20, Owner))
                         StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
@@ -59,8 +61,9 @@ namespace Assets.Scripts
             }
         }
 
-        public void FireMissile(Vector3 direction, float missileSpeed)
+        public void FireMissile(Vector3 direction, float missileSpeed, short owner)
         {
+            Owner = owner;
             Shoot.Play();
             StartCoroutine(MoveMissile(direction, missileSpeed));
         }
