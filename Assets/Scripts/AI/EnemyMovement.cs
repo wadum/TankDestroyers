@@ -28,11 +28,10 @@ namespace Assets.Scripts.AI
         private RoundKeeper _roundKeeper;
         private Vector3 _spawnPos;
         private Quaternion _spawnRot;
-        private bool _dead;
 
         void Start ()
         {
-            if (!isServer || _dead)
+            if (!isServer)
                 return;
 
             GetComponent<NavMeshAgent>().enabled = true;
@@ -84,6 +83,17 @@ namespace Assets.Scripts.AI
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
+            _health = 100;
+            transform.rotation = _spawnRot;
+            transform.position = _spawnPos;
+            _currentState = _patrolState;
+            _patrolState.Reset();
+            RpcReset();
+        }
+
+        [ClientRpc]
+        private void RpcReset()
+        {
             StartCoroutine(Reset());
         }
 
@@ -92,17 +102,10 @@ namespace Assets.Scripts.AI
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
-            _dead = true;
             yield return new WaitForSeconds(RespawnDelay);
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
             gameObject.GetComponent<BoxCollider>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
-            _dead = false;
-            _health = 100;
-            transform.rotation = _spawnRot;
-            transform.position = _spawnPos;
-            _currentState = _patrolState;
-            _patrolState.Reset();
         }
 
         void InitiateSoundSettings()
