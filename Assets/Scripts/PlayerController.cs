@@ -122,7 +122,7 @@ namespace Assets.Scripts
 
         void FixedUpdate()
         {
-            if (DisableControls && !isLocalPlayer) return;
+            if (DisableControls || !isLocalPlayer) return;
             if (Input.GetKey("a"))
                 _rb.AddTorque(new Vector3(0, -1 * RotationMagnitude, 0));
             if (Input.GetKey("d"))
