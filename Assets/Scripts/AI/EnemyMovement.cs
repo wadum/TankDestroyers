@@ -20,6 +20,8 @@ namespace Assets.Scripts.AI
         public AudioClip TankShotSound;
         public float TankShotVolume = 0.3f;
 
+        public HealthIndicator HealthIndicator;
+
         public short NetworkId { get; private set; }
 
         private NavMeshAgent _nav;
@@ -33,6 +35,7 @@ namespace Assets.Scripts.AI
         private Quaternion _spawnRot;
         private BulletManager _bc;
         private float _nextTimeShotAllowed = 0;
+        
 
         void Start ()
         {
@@ -60,7 +63,8 @@ namespace Assets.Scripts.AI
             _spawnRot = transform.rotation;
 
             GameObject.FindGameObjectsWithTag("Waypoint");
-            _roundKeeper = GameObject.FindObjectOfType<RoundKeeper>();
+            _roundKeeper = FindObjectOfType<RoundKeeper>();
+            RpcSetHealthOnIndicator(_health);
         }
 
 
@@ -89,6 +93,7 @@ namespace Assets.Scripts.AI
         public void HitByBullet(float damage, short owner)
         {
             _health -= damage;
+            RpcSetHealthOnIndicator(_health);
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
@@ -106,6 +111,12 @@ namespace Assets.Scripts.AI
         }
 
         [ClientRpc]
+        private void RpcSetHealthOnIndicator(float health)
+        {
+            HealthIndicator.SetHealth(health);
+        }
+
+        [ClientRpc]
         private void RpcReset()
         {
             StartCoroutine(ResetClient());
@@ -120,6 +131,7 @@ namespace Assets.Scripts.AI
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
             gameObject.GetComponent<BoxCollider>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
+
         }
 
         void InitiateSoundSettings()
