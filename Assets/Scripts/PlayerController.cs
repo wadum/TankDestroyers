@@ -250,7 +250,8 @@ namespace Assets.Scripts
 
             if (_health < 1)
             {
-                _roundKeeper.AddScoreTo(owner);
+                if (owner != networkId)
+                    _roundKeeper.AddScoreTo(owner);
                 Respawn();
             }
         }
@@ -265,7 +266,7 @@ namespace Assets.Scripts
             Body.SetActive(false);
             DeathExpotion.Play();
 
-            yield return new WaitForSeconds(DeathExpotion.duration);
+            yield return new WaitForSeconds(2);
 
             DisableControls = !isLocalPlayer;
             Body.SetActive(true);

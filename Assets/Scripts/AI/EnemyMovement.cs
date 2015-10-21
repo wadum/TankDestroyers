@@ -29,6 +29,8 @@ namespace Assets.Scripts.AI
         private PatrolState _patrolState;
         private IState _currentState;
         private AudioSource _shotSource;
+        
+        [SyncVar]
         private float _health = 100;
         private RoundKeeper _roundKeeper;
         private Vector3 _spawnPos;
@@ -40,7 +42,8 @@ namespace Assets.Scripts.AI
         void Start ()
         {
             NetworkId = (short)GetComponent<NetworkIdentity>().netId.Value;
-
+            SetHealthOnIndicator(_health);
+            
             if (!isServer)
                 return;
 
@@ -64,7 +67,7 @@ namespace Assets.Scripts.AI
 
             GameObject.FindGameObjectsWithTag("Waypoint");
             _roundKeeper = FindObjectOfType<RoundKeeper>();
-            RpcSetHealthOnIndicator(_health);
+            
         }
 
 
@@ -93,7 +96,7 @@ namespace Assets.Scripts.AI
         public void HitByBullet(float damage, short owner)
         {
             _health -= damage;
-            RpcSetHealthOnIndicator(_health);
+            SetHealthOnIndicator(_health);
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
@@ -110,8 +113,8 @@ namespace Assets.Scripts.AI
             RpcReset();
         }
 
-        [ClientRpc]
-        private void RpcSetHealthOnIndicator(float health)
+        //[ClientRpc]
+        private void SetHealthOnIndicator(float health)
         {
             HealthIndicator.SetHealth(health);
         }
@@ -119,7 +122,7 @@ namespace Assets.Scripts.AI
         [ClientRpc]
         private void RpcReset()
         {
-            RpcSetHealthOnIndicator(_health);
+            SetHealthOnIndicator(_health);
             StartCoroutine(ResetClient());
         }
 
