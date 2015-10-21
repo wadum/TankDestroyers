@@ -25,8 +25,9 @@ namespace Assets.Scripts.AI
             // Change target, if waypoint is reached
             if (IsWaypointReashed())
                 _currentWaypoint = ++_currentWaypoint % _waypoints.Count;
-            
-            _nav.destination = _waypoints[_currentWaypoint].position;
+
+            if (_nav.isOnNavMesh) 
+                _nav.destination = _waypoints[_currentWaypoint].position;
         }
 
         private bool IsWaypointReashed()
