@@ -31,6 +31,8 @@ namespace Assets.Scripts.AI
 
         private bool IsWaypointReashed()
         {
+            if (!_nav.isOnNavMesh) // Sometimes this fuckes up.. Stupid multiplayer
+                return true;
             if (!_nav.pathPending && _nav.remainingDistance <= _nav.stoppingDistance)
                 return !_nav.hasPath || _nav.velocity.sqrMagnitude < 0.2f;
             
