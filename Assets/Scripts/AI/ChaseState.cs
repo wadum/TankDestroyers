@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using Assets.Scripts.Variables;
-using Assets.Scripts.Weapons;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.AI
 {

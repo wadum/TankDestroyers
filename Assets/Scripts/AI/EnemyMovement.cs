@@ -37,6 +37,8 @@ namespace Assets.Scripts.AI
         private Quaternion _spawnRot;
         private BulletManager _bc;
         private float _nextTimeShotAllowed = 0;
+        private float ChaseShooterUntil;
+
         
 
         void Start ()
@@ -76,6 +78,9 @@ namespace Assets.Scripts.AI
             if(!isServer)
                 return;
 
+            if (ChaseShooterUntil > Time.time)
+                _currentState = _chaseState;
+
             _currentState.ExecuteState();
             _currentState = _patrolState;
             FireIfEnemy();
@@ -97,10 +102,24 @@ namespace Assets.Scripts.AI
         {
             _health -= damage;
             SetHealthOnIndicator(_health);
+            ChaseShooter(owner);
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
             Reset();
+        }
+
+
+
+        private void ChaseShooter(short owner)
+        {
+            var players = GameObject.FindGameObjectsWithTag(Constants.Tags.Player);
+            var player = players.FirstOrDefault(p => p.GetComponent<NetworkIdentity>().netId.Value == owner);
+
+            if (player == null) return;
+            
+            _chaseState.Target = player.transform;
+            ChaseShooterUntil = Time.time + 2;
         }
 
         public void Reset()
