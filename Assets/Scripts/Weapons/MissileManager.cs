@@ -43,7 +43,7 @@ namespace Assets.Scripts.Weapons
         }
 
         [ClientRpc]
-        public void RpcFireMissile(Vector3 origin, Vector3 direction)
+        public void RpcFireMissile(Vector3 origin, Vector3 direction, short owner)
         {
             var missile = GetMissile();
             missile.transform.position = origin;
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Weapons
             missile.transform.Translate(direction * 3.5f);
             missile.transform.Translate(Vector3.up * 1.5f);
             missile.transform.GetChild(0).localRotation = Quaternion.LookRotation(direction, Vector3.up);
-            missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed);
+            missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed, owner);
         }
 
     }

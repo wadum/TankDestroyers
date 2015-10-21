@@ -29,4 +29,14 @@ public class RoundKeeper : NetworkBehaviour
 	    }
 
 	}
+
+    public void AddScoreTo(short playerId)
+    {
+        if (!isServer)
+        {
+            Debug.LogError("Would this ever happen??!");
+        }
+        Debug.Log("Player with id " + playerId + " got a point");
+
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -8,7 +7,8 @@ namespace Assets.Scripts
     {
 
         public ParticleSystem Explosion;
-
+        public short Owner;
+        
         private bool _moving;
 
         void OnTriggerEnter(Collider other)
@@ -16,7 +16,7 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    other.GetComponent<PlayerController>().HitByBullet();
+                    other.GetComponent<PlayerController>().HitByBullet(5, Owner);
                     StartCoroutine(BulletHit());
                     break;
                 case "Enemy":
@@ -40,8 +40,9 @@ namespace Assets.Scripts
             gameObject.SetActive(false);  
         }
 
-        public void FireBullet(Vector3 direction, float bulletSpeed)
+        public void FireBullet(Vector3 direction, float bulletSpeed, short owner)
         {
+            Owner = owner;
             StartCoroutine(MoveBullet(direction, bulletSpeed));
         }
 

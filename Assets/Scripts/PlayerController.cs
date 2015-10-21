@@ -15,6 +15,9 @@ namespace Assets.Scripts
         public float Health = 100;
         public HealthIndicator HealthIndicator;
 
+        [SyncVar]
+        public string PlayerName;
+
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
         public float MovementMagnitude = 0.1f;
@@ -53,6 +56,8 @@ namespace Assets.Scripts
         private int _missileAmount;
         public bool DisableControls = true;
 
+        private short networkId;
+
         private BulletManager _weapon;
         private MissileManager _missiles;
         private RadialSlider _healthBar;
@@ -62,6 +67,7 @@ namespace Assets.Scripts
         private GameObject _firstPersonUi;
         private Vector3 _spawnPosition;
         private Quaternion _spawnRotation;
+        private RoundKeeper _roundKeeper;
 
         void Start()
         {
@@ -95,6 +101,9 @@ namespace Assets.Scripts
                 _weapon = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
             if (_missiles == null)
                 _missiles = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
+
+
+            networkId = GetComponent<NetworkIdentity>().playerControllerId;
         }
 
         void FixedUpdate()
@@ -111,15 +120,15 @@ namespace Assets.Scripts
         }
 
         [Command]
-        public void CmdFireMissile(Vector3 origin, Vector3 direction)
+        public void CmdFireMissile(Vector3 origin, Vector3 direction, short owner)
         {
-            _missiles.RpcFireMissile(origin, direction);
+            _missiles.RpcFireMissile(origin, direction, owner);
         }
 
         [Command]
-        public void CmdFireBullet(Vector3 origin, Vector3 direction)
+        public void CmdFireBullet(Vector3 origin, Vector3 direction, short owner)
         {
-            _weapon.RpcFireWeapon(origin, direction);
+            _weapon.RpcFireWeapon(origin, direction, owner);
         }
 
         // Update is called once per frame
@@ -141,7 +150,7 @@ namespace Assets.Scripts
             {
                 if (_missileAmount < 1)
                     return;
-                CmdFireMissile(transform.position, transform.forward);
+                CmdFireMissile(transform.position, transform.forward, networkId);
                 CmdAddMissiles(-1);
             }
             if (Input.GetKeyDown("space"))
@@ -153,33 +162,34 @@ namespace Assets.Scripts
                 if (_mineAmount < 1)
                     return;
 
-                Cmd_PlaceMine();
+                Cmd_PlaceMine(networkId);
                 CmdAddMines(-1);
             }
         }
 
         [Command]
-        public void Cmd_PlaceMine()
+        public void Cmd_PlaceMine(short networkId)
         {
             var mine = ((GameObject)Instantiate(MinePrefab)).GetComponent<MineController>();
             mine.transform.position = transform.position;
             mine.transform.Translate(transform.forward * -3.5f);
             mine.transform.position = new Vector3(mine.transform.position.x, 0.2f, mine.transform.position.z);
+            mine.Owner = networkId;
             NetworkServer.Spawn(mine.gameObject);
         }
 
-        public bool HitByBullet()
+        public bool HitByBullet(int damage, short owner)
         {
             if (isLocalPlayer)
-                CmdTakeDamage(10);
+                CmdTakeDamage(10, owner);
             return isLocalPlayer;
         }
 
-        public bool HitByMine(GameObject mine)
+        public bool HitByMine(GameObject mine, short owner)
         {
             if (isLocalPlayer)
             {
-                CmdTakeDamage(MineDamage);
+                CmdTakeDamage(MineDamage, owner);
                 CmdExplodeMine(mine);
             }
             return isLocalPlayer;
@@ -214,16 +224,22 @@ namespace Assets.Scripts
             MachineGunSound.Play();
             while (Input.GetKey("space"))
             {
-                CmdFireBullet(transform.position, transform.forward);
+                CmdFireBullet(transform.position, transform.forward, networkId);
                 yield return new WaitForSeconds(MachineGunCd);
             }
             MachineGunSound.Stop();
         }
 
         [Command]
-        private void CmdTakeDamage(float amount)
+        private void CmdTakeDamage(float amount, short owner)
         {
             _health -= amount;
+
+            if (_health < 1)
+            {
+                _roundKeeper.AddScoreTo(owner);
+                Respawn();
+            }
         }
 
         public void Respawn()

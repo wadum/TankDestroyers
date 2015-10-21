@@ -50,7 +50,7 @@ namespace Assets.Scripts.AI
             if(Time.time <= _nextTimeShotAllowed)
                 return;
 
-            _bc.RpcFireWeapon(_nav.transform.position, direction);
+            _bc.RpcFireWeapon(_nav.transform.position, direction, -1);
             _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
             _shotSource.Play();
         }
