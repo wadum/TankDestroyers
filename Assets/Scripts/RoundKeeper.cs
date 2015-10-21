@@ -38,7 +38,7 @@ public class RoundKeeper : NetworkBehaviour
 
         if (TimeLeft < 0)
         {
-
+            TimeLeft = 0;
             var players = GameObject.FindGameObjectsWithTag(Constants.Tags.Player);
 
 
