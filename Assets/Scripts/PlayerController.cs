@@ -58,6 +58,7 @@ namespace Assets.Scripts
         private RadialSlider _healthBar;
         private RadialSlider _reloadBar;
         private UiMineController _mineBar;
+        private UiMissileController _missileBar;
         private GameObject _firstPersonUi;
         private Vector3 _spawnPosition;
         private Quaternion _spawnRotation;
@@ -85,6 +86,7 @@ namespace Assets.Scripts
             _health = Health;
             _mineAmount = MineStartAmount;
             _mineBar = _firstPersonUi.transform.GetComponentsInChildren<UiMineController>().First(s => s.tag == "MinesBar");
+            _missileBar = _firstPersonUi.transform.GetComponentsInChildren<UiMissileController>().First(s => s.tag == "MissilesBar");
             _missileAmount = MissileStartAmount;
             //_mineBar = GameObject.FindGameObjectWithTag("MinesBar").GetComponent<UiMineController>();
             _mineBar.SetAvailableMines(_mineAmount);
@@ -127,6 +129,7 @@ namespace Assets.Scripts
             if (_health < 1)
                 Respawn();
             SetAvailableMines();
+            SetAvailableMissiles();
             UpdateHealthIndicators();
             if (DisableControls && !isLocalPlayer) return;
             if (Input.GetKeyDown("f"))
@@ -258,6 +261,12 @@ namespace Assets.Scripts
             {
                 InactiveMines[i].SetActive(i < _mineAmount);
             }
+        }
+
+        private void SetAvailableMissiles()
+        {
+            if (isLocalPlayer && FirstPersonMode)
+                _missileBar.SetAvailableMissiles(_missileAmount);
         }
 
         public bool ResetPickUp(GameObject pickUp)
