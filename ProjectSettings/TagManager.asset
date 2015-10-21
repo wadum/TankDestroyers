@@ -15,6 +15,7 @@ TagManager:
   - MinesBar
   - MissilesBar
   - TimerBar
+  - Highscore
   layers:
   - Default
   - TransparentFX

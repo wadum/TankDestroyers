@@ -11,6 +11,7 @@
             public static string Mine = "Mine";
             public static string Waypoint = "Waypoint";
             public static string TimerBar = "TimerBar";
+            public static string HighScore = "Highscore";
         }
 
         public static class MapGeneration

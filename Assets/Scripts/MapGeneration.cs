@@ -308,26 +308,26 @@ namespace Assets.Scripts
             }
         }
 
-        #region GizmoDebug
-
-        void OnDrawGizmos()
-        {
-
-
-            if (!DrawDebugGizmo || _map == null) return;
-
-            var h = _map.GetLength(0);
-            var w = _map.GetLength(1);
-
-            for (var x = 0; x < w; x++)
-                for (var y = 0; y < h; y++)
-                {
-                    Gizmos.color = (_map[x, y] == 1) ? Color.black : Color.white;
-                    var pos = new Vector3(-w / 2 + x + .5f, 0, -h / 2 + y + .5f);
-                    Gizmos.DrawCube(pos, Vector3.one);
-                }
-        }
-
-        #endregion
+//        #region GizmoDebug
+//
+//        void OnDrawGizmos()
+//        {
+//
+//
+//            if (!DrawDebugGizmo || _map == null) return;
+//
+//            var h = _map.GetLength(0);
+//            var w = _map.GetLength(1);
+//
+//            for (var x = 0; x < w; x++)
+//                for (var y = 0; y < h; y++)
+//                {
+//                    Gizmos.color = (_map[x, y] == 1) ? Color.black : Color.white;
+//                    var pos = new Vector3(-w / 2 + x + .5f, 0, -h / 2 + y + .5f);
+//                    Gizmos.DrawCube(pos, Vector3.one);
+//                }
+//        }
+//
+//        #endregion
     }
 }

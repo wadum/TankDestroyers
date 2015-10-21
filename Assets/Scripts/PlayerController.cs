@@ -264,7 +264,7 @@ namespace Assets.Scripts
             MyCamera.transform.localPosition = FirstPersonMode
                     ? FirstPerson.transform.localPosition
                     : ThirdPerson.transform.localPosition;
-            foreach (var cr in _firstPersonUi.GetComponentsInChildren<CanvasRenderer>().Where(s => s.tag != Constants.Tags.TimerBar))
+            foreach (var cr in _firstPersonUi.GetComponentsInChildren<CanvasRenderer>().Where(s => s.tag != Constants.Tags.TimerBar && s.tag != Constants.Tags.HighScore))
             {
                 cr.SetAlpha(FirstPersonMode ? 1 : 0);
             }
@@ -307,6 +307,12 @@ namespace Assets.Scripts
         public void RpcResetPickUp(GameObject pickUp)
         {
             StartCoroutine(pickUp.GetComponent<IPickUpController>().PickUp());
+        }
+
+        public void DisableMovement()
+        {
+            if (isLocalPlayer)
+                enabled = false;
         }
 
     }
