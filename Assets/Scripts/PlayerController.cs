@@ -12,11 +12,18 @@ namespace Assets.Scripts
     public class PlayerController : NetworkBehaviour
     {
 
-        public float Health = 100;
-        public HealthIndicator HealthIndicator;
 
         [SyncVar]
         public string PlayerName;
+
+        [Space(10)]
+        [Header("Health")]
+        public float Health = 100;
+        public HealthIndicator HealthIndicator;
+        public ParticleSystem DeathExpotion;
+        public GameObject Body;
+
+        
 
         [Header("Controls")]
         public float RotationMagnitude = 0.5f;
@@ -140,7 +147,7 @@ namespace Assets.Scripts
         void Update ()
         {
             if (_health < 1)
-                Respawn();
+                StartCoroutine(Respawn());
             SetAvailableMines();
             SetAvailableMissiles();
             UpdateHealthIndicators();
@@ -246,8 +253,20 @@ namespace Assets.Scripts
             }
         }
 
-        public void Respawn()
+        public IEnumerator Respawn()
         {
+            _missileAmount = 0;
+            _mineAmount = 0;
+            SetAvailableMines();
+            SetAvailableMissiles();
+            DisableControls = true;
+            Body.SetActive(false);
+            DeathExpotion.Play();
+
+            yield return new WaitForSeconds(DeathExpotion.duration);
+
+            DisableControls = !isLocalPlayer;
+            Body.SetActive(true);
             transform.position = _spawnPosition;
             transform.rotation = _spawnRotation;
             _mineAmount = MineStartAmount;
