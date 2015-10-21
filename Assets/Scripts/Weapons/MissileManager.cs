@@ -48,8 +48,6 @@ namespace Assets.Scripts.Weapons
             var missile = GetMissile();
             missile.transform.position = origin;
 
-            missile.transform.Translate(direction * 3.5f);
-            missile.transform.Translate(Vector3.up * 1.5f);
             missile.transform.GetChild(0).localRotation = Quaternion.LookRotation(direction, Vector3.up);
             missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed, owner);
         }

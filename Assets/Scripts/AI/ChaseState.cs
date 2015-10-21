@@ -16,9 +16,11 @@ namespace Assets.Scripts.AI
         private readonly int _msBetweenShots;
         private float _nextTimeShotAllowed = 0;
         private readonly AudioSource _shotSource;
+        private readonly short _networkId;
 
-        public ChaseState(NavMeshAgent nav, int msBetweenShots, AudioSource shotSource)
+        public ChaseState(NavMeshAgent nav, int msBetweenShots, AudioSource shotSource, short networkId)
         {
+            _networkId = networkId;
             _shotSource = shotSource;
             _nav = nav;
             _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
@@ -50,7 +52,7 @@ namespace Assets.Scripts.AI
             if(Time.time <= _nextTimeShotAllowed)
                 return;
 
-            _bc.RpcFireWeapon(_nav.transform.position, direction, -1);
+            _bc.RpcFireWeapon(_nav.transform.position, direction, _networkId);
             _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
             _shotSource.Play();
         }

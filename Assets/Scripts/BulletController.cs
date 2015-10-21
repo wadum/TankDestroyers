@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.AI;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -8,6 +9,8 @@ namespace Assets.Scripts
 
         public ParticleSystem Explosion;
         public short Owner;
+        public float BotDamage = 5;
+        public float PlayerDamage = 5;
         
         private bool _moving;
 
@@ -16,10 +19,13 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    other.GetComponent<PlayerController>().HitByBullet(5, Owner);
+                    if (Owner == other.GetComponent<PlayerController>().networkId) return;
+                    other.GetComponent<PlayerController>().HitByBullet(PlayerDamage, Owner);
                     StartCoroutine(BulletHit());
                     break;
                 case "Enemy":
+                    if (Owner == other.GetComponent<EnemyMovement>().NetworkId) return;
+                    other.GetComponent<EnemyMovement>().HitByBullet(BotDamage, Owner);
                     StartCoroutine(BulletHit());
                     break;
                 case "Wall":

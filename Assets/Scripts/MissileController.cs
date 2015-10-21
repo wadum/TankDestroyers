@@ -12,6 +12,8 @@ namespace Assets.Scripts
         public AudioSource Shoot;
         public AudioSource Hit;
         public short Owner;
+        public float BotDamage = 50;
+        public float PlayerDamage = 25;
 
 
         private bool _moving = true;
@@ -21,11 +23,13 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    other.GetComponent<PlayerController>().HitByBullet(20, Owner);
+                    if (Owner == other.GetComponent<PlayerController>().networkId) return;
+                    other.GetComponent<PlayerController>().HitByBullet(PlayerDamage, Owner);
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
-                    other.GetComponent<EnemyMovement>().HitByBullet(Owner);
+                    if (Owner == other.GetComponent<EnemyMovement>().NetworkId) return;
+                    other.GetComponent<EnemyMovement>().HitByBullet(BotDamage, Owner);
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Wall":

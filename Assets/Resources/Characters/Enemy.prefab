@@ -27,7 +27,6 @@ GameObject:
   - 4: {fileID: 456210}
   - 195: {fileID: 19573664}
   - 114: {fileID: 11452894}
-  - 82: {fileID: 8259122}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11475084}
   - 54: {fileID: 5479096}
@@ -66,6 +65,7 @@ GameObject:
   - 4: {fileID: 448766}
   - 95: {fileID: 9573822}
   - 135: {fileID: 13537190}
+  - 82: {fileID: 8220848}
   m_Layer: 0
   m_Name: Tank_pref
   m_TagString: Untagged
@@ -213,12 +213,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.23000002, y: 1.96000004, z: 5.19000006}
   m_Center: {x: 0, y: 1.08000004, z: -.239999995}
---- !u!82 &8259122
+--- !u!82 &8220848
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177664}
+  m_GameObject: {fileID: 196658}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -228,6 +228,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -359,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MsBetweenShots: 500
   NumberOfWaypoints: 3
+  RespawnDelay: 10
   TankShotSound: {fileID: 8300000, guid: 37f8a903f3347484d8d2596ae2f304ca, type: 3}
   TankShotVolume: .300000012
 --- !u!114 &11475084
