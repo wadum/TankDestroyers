@@ -238,7 +238,7 @@ namespace Assets.Scripts
             if (_health < 1)
             {
                 _roundKeeper.AddScoreTo(owner);
-                RpcRespawn();
+                Respawn();
             }
         }
 
