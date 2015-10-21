@@ -34,6 +34,13 @@ namespace Assets.Scripts
         public int MissileStartAmount = 3;
         public float MissileDamage = 50;
         public GameObject[] InactiveMissiles;
+        public GameObject MissileOriginPoint;
+
+        [Space(10)]
+        [Header("Gun Settings")]
+        public float MachineGunCd = 0.1f;
+        public AudioSource MachineGunSound;
+        public GameObject GunOriginPoint;
 
         [Space(10)]
         [Header("Camera")]
@@ -41,11 +48,6 @@ namespace Assets.Scripts
         public GameObject FirstPerson;
         public GameObject ThirdPerson;
         public bool FirstPersonMode = false;
-
-        [Space(10)]
-        [Header("Weapons")]
-        public float MachineGunCd = 0.1f;
-        public AudioSource MachineGunSound;
 
         private Rigidbody _rb;
         [SyncVar]
@@ -56,7 +58,8 @@ namespace Assets.Scripts
         private int _missileAmount;
         public bool DisableControls = true;
 
-        private short networkId;
+
+        public short networkId { get; private set; }
 
         private BulletManager _weapon;
         private MissileManager _missiles;
@@ -123,13 +126,13 @@ namespace Assets.Scripts
         [Command]
         public void CmdFireMissile(Vector3 origin, Vector3 direction, short owner)
         {
-            _missiles.RpcFireMissile(origin, direction, owner);
+            _missiles.RpcFireMissile(MissileOriginPoint.transform.position, direction, owner);
         }
 
         [Command]
         public void CmdFireBullet(Vector3 origin, Vector3 direction, short owner)
         {
-            _weapon.RpcFireWeapon(origin, direction, owner);
+            _weapon.RpcFireWeapon(GunOriginPoint.transform.position, direction, owner);
         }
 
         // Update is called once per frame

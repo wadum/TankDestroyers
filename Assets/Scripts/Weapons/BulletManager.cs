@@ -46,9 +46,6 @@ namespace Assets.Scripts.Weapons
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
-            bullet.transform.Translate(direction * 4f);
-            bullet.transform.Translate(Vector3.up * 1.5f);
-            bullet.transform.Translate(Vector3.right * -.35f);
 
             bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed, owner);
         }

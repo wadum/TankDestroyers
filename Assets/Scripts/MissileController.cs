@@ -23,10 +23,12 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
+                    if (Owner == other.GetComponent<PlayerController>().networkId) return;
                     other.GetComponent<PlayerController>().HitByBullet(PlayerDamage, Owner);
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
+                    if (Owner == other.GetComponent<EnemyMovement>().NetworkId) return;
                     other.GetComponent<EnemyMovement>().HitByBullet(BotDamage, Owner);
                     StartCoroutine(ExplodeMissile());
                     break;

@@ -19,6 +19,8 @@ namespace Assets.Scripts.AI
         public AudioClip TankShotSound;
         public float TankShotVolume = 0.3f;
 
+        public short NetworkId { get; private set; }
+
         private NavMeshAgent _nav;
         private ChaseState _chaseState;
         private PatrolState _patrolState;
@@ -31,6 +33,8 @@ namespace Assets.Scripts.AI
 
         void Start ()
         {
+            NetworkId = (short)GetComponent<NetworkIdentity>().netId.Value;
+
             if (!isServer)
                 return;
 
@@ -44,7 +48,7 @@ namespace Assets.Scripts.AI
                 .ToList();
 
             _nav = GetComponent<NavMeshAgent>();
-            _chaseState = new ChaseState(_nav, MsBetweenShots, _shotSource);
+            _chaseState = new ChaseState(_nav, MsBetweenShots, _shotSource, NetworkId);
             _patrolState = new PatrolState(_nav, selectedWapoints);
             _currentState = _patrolState;
 
