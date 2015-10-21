@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using Assets.Scripts.Variables;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Assets.Scripts.AI
 
         public int MsBetweenShots;
         public int NumberOfWaypoints;
+        public float RespawnDelay = 10;
 
         [Space(10)]
         [Header("Tank Shot")]
@@ -24,11 +26,13 @@ namespace Assets.Scripts.AI
         private AudioSource _shotSource;
         private float _health = 100;
         private RoundKeeper _roundKeeper;
-
+        private Vector3 _spawnPos;
+        private Quaternion _spawnRot;
+        private bool _dead;
 
         void Start ()
         {
-            if (!isServer)
+            if (!isServer || _dead)
                 return;
 
             GetComponent<NavMeshAgent>().enabled = true;
@@ -44,6 +48,9 @@ namespace Assets.Scripts.AI
             _chaseState = new ChaseState(_nav, MsBetweenShots, _shotSource);
             _patrolState = new PatrolState(_nav, selectedWapoints);
             _currentState = _patrolState;
+
+            _spawnPos = transform.position;
+            _spawnRot = transform.rotation;
 
             GameObject.FindGameObjectsWithTag("Waypoint");
             _roundKeeper = GameObject.FindObjectOfType<RoundKeeper>();
@@ -74,12 +81,28 @@ namespace Assets.Scripts.AI
         public void HitByBullet(float damage, short owner)
         {
             _health -= damage;
-            if (_health < 1)
-            {
-                Destroy(gameObject);
-                if(isServer)
-                    _roundKeeper.AddScoreTo(owner);
-            }
+            if (!(_health < 1)) return;
+            if (!isServer) return;
+            _roundKeeper.AddScoreTo(owner);
+            StartCoroutine(Reset());
+        }
+
+        private IEnumerator Reset()
+        {
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
+            _dead = true;
+            yield return new WaitForSeconds(RespawnDelay);
+            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
+            _dead = false;
+            _health = 100;
+            transform.rotation = _spawnRot;
+            transform.position = _spawnPos;
+            _currentState = _patrolState;
+            _patrolState.Reset();
         }
 
         void InitiateSoundSettings()

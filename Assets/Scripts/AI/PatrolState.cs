@@ -6,7 +6,7 @@ namespace Assets.Scripts.AI
 {
     public class PatrolState : IState
     {
-        private readonly List<Transform> _waypoints;
+        private List<Transform> _waypoints;
         private readonly NavMeshAgent _nav;
         private int _currentWaypoint = 0;
 
@@ -28,6 +28,12 @@ namespace Assets.Scripts.AI
 
             if (_nav.isOnNavMesh) 
                 _nav.destination = _waypoints[_currentWaypoint].position;
+        }
+
+        public void Reset()
+        {
+            _currentWaypoint = 0;
+            _waypoints = _waypoints.OrderBy(t => Random.Range(0, _waypoints.Count)).ToList();
         }
 
         private bool IsWaypointReashed()
