@@ -12,7 +12,7 @@ namespace Assets.Scripts.AI
         public Transform Target { get; set; }
 
         private readonly NavMeshAgent _nav;
-        private readonly WeaponController _bc;
+        private readonly BulletManager _bc;
         private readonly int _msBetweenShots;
         private float _nextTimeShotAllowed = 0;
         private readonly AudioSource _shotSource;

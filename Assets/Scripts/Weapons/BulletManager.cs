@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Networking;
 
 
 namespace Assets.Scripts.Weapons
 {
-    public class BulletManager : WeaponController
+    public class BulletManager : NetworkBehaviour
     {
         public float BulletSpeed = 0.5f;    
         
@@ -40,7 +41,8 @@ namespace Assets.Scripts.Weapons
             return b;
         }
 
-        public override void RpcFireWeapon(Vector3 origin, Vector3 direction, short owner)
+        [ClientRpc]
+        public void RpcFireWeapon(Vector3 origin, Vector3 direction, short owner)
         {
             var bullet = GetBullet();
             bullet.transform.position = origin;
