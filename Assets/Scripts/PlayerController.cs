@@ -103,7 +103,8 @@ namespace Assets.Scripts
                 _missiles = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<MissileManager>();
 
 
-            networkId = GetComponent<NetworkIdentity>().playerControllerId;
+            networkId = (short)GetComponent<NetworkIdentity>().netId.Value;
+            _roundKeeper = GameObject.FindObjectOfType<RoundKeeper>();
         }
 
         void FixedUpdate()
