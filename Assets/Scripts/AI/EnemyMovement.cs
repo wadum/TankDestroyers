@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using Assets.Scripts.Variables;
+using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -30,6 +31,8 @@ namespace Assets.Scripts.AI
         private RoundKeeper _roundKeeper;
         private Vector3 _spawnPos;
         private Quaternion _spawnRot;
+        private BulletManager _bc;
+        private float _nextTimeShotAllowed = 0;
 
         void Start ()
         {
@@ -40,6 +43,7 @@ namespace Assets.Scripts.AI
 
             GetComponent<NavMeshAgent>().enabled = true;
             InitiateSoundSettings();
+            _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
 
             var allWaypoints = GameObject.FindGameObjectsWithTag(Constants.Tags.Waypoint).ToList();
             var selectedWapoints = allWaypoints.Select(go => go.transform)
@@ -67,6 +71,7 @@ namespace Assets.Scripts.AI
 
             _currentState.ExecuteState();
             _currentState = _patrolState;
+            FireIfEnemy();
         }
 
         void OnTriggerStay(Collider other)
@@ -119,10 +124,36 @@ namespace Assets.Scripts.AI
             _shotSource.loop = false;
             _shotSource.playOnAwake = false;
             _shotSource.volume = TankShotVolume;
-            _shotSource.minDistance = 5;
-            _shotSource.maxDistance = 20;
+            _shotSource.minDistance = 10;
+            _shotSource.maxDistance = 100;
             _shotSource.rolloffMode = AudioRolloffMode.Linear;
             _shotSource.spatialBlend = 1;
+        }
+
+        private bool FireIfEnemy()
+        {
+            var fwd = _nav.transform.TransformDirection(Vector3.forward);
+            var hits = Physics.RaycastAll(_nav.transform.position, fwd, 500f);
+
+            foreach (var rh in hits)
+            {
+                if (rh.transform.gameObject.tag == Constants.Tags.Wall)
+                    return false;
+                if (rh.transform.gameObject.tag == Constants.Tags.Player)
+                    FireIfAllowed(fwd);
+            }
+
+            return true;
+        }
+
+        private void FireIfAllowed(Vector3 direction)
+        {
+            if (Time.time <= _nextTimeShotAllowed)
+                return;
+
+            _bc.RpcFireWeapon(_nav.transform.position, direction, NetworkId);
+            _nextTimeShotAllowed = Time.time + (MsBetweenShots / 1000f);
+            _shotSource.Play();
         }
     }
 }

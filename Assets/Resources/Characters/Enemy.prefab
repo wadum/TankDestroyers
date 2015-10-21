@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 465448}
   - 33: {fileID: 3356004}
   - 23: {fileID: 2313496}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - 4: {fileID: 404998}
   - 33: {fileID: 3386392}
   - 23: {fileID: 2303770}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - 95: {fileID: 9573822}
   - 135: {fileID: 13537190}
   - 82: {fileID: 8220848}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tank_pref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,6 +453,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TransformSyncMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

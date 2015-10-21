@@ -10,11 +10,9 @@ namespace Assets.Scripts.AI
     public class ChaseState : IState
     {
         public Transform Target { get; set; }
+        public float StopAtDistance = 10f;
 
         private readonly NavMeshAgent _nav;
-        private readonly BulletManager _bc;
-        private readonly int _msBetweenShots;
-        private float _nextTimeShotAllowed = 0;
         private readonly AudioSource _shotSource;
         private readonly short _networkId;
 
@@ -23,38 +21,33 @@ namespace Assets.Scripts.AI
             _networkId = networkId;
             _shotSource = shotSource;
             _nav = nav;
-            _bc = GameObject.FindGameObjectWithTag("GameScripts").GetComponent<BulletManager>();
-            _msBetweenShots = msBetweenShots;
         }
 
         public void ExecuteState()
         {
             _nav.enabled = true;
             if (Target != null)
-                _nav.destination = Target.position;
-            if (FireIfEnemy())
-                _nav.enabled = false;
-        }
+            {
+                if (Vector3.Distance(_nav.transform.position, Target.position) < StopAtDistance)
+                {
+                    _nav.destination = _nav.transform.position;
 
-        private bool FireIfEnemy()
-        {
-            var fwd = _nav.transform.TransformDirection(Vector3.forward);
-            var hits = Physics.RaycastAll(_nav.transform.position, fwd, 10f);
+                    //find the vector pointing from our position to the target
+                    var direction = (Target.position - _nav.transform.position).normalized;
 
-            if (!hits.Where(other => other.transform.tag == Constants.Tags.Player).Any()) return false;
-            
-            FireIfAllowed(fwd);
-            return true;
-        }
+                    //create the rotation we need to be in to look at the target
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-        private void FireIfAllowed(Vector3 direction)
-        {
-            if(Time.time <= _nextTimeShotAllowed)
-                return;
-
-            _bc.RpcFireWeapon(_nav.transform.position, direction, _networkId);
-            _nextTimeShotAllowed = Time.time + (_msBetweenShots/1000f);
-            _shotSource.Play();
+                    //rotate us over time according to speed until we are in the required rotation
+                    _nav.transform.rotation = Quaternion.Slerp(_nav.transform.rotation, lookRotation, Time.deltaTime * 2);
+                }
+                else
+                    _nav.destination = Vector3.Lerp(_nav.transform.position, Target.position,
+                        (Vector3.Distance(_nav.transform.position, Target.position) - StopAtDistance)/
+                        Vector3.Distance(_nav.transform.position, Target.position));
+            }
+            //if (FireIfEnemy())
+            //    _nav.enabled = false;
         }
     }
 }
