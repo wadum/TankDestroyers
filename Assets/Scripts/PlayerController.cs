@@ -267,6 +267,10 @@ namespace Assets.Scripts
         {
             if (isLocalPlayer && FirstPersonMode)
                 _missileBar.SetAvailableMissiles(_missileAmount);
+            for (var i = 0; i < InactiveMissiles.Length; i++)
+            {
+                InactiveMissiles[i].SetActive(i < _missileAmount);
+            }
         }
 
         public bool ResetPickUp(GameObject pickUp)
