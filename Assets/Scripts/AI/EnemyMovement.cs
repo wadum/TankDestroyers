@@ -44,7 +44,6 @@ namespace Assets.Scripts.AI
         void Start ()
         {
             NetworkId = (short)GetComponent<NetworkIdentity>().netId.Value;
-            SetHealthOnIndicator(_health);
             
             if (!isServer)
                 return;
@@ -75,7 +74,9 @@ namespace Assets.Scripts.AI
 
         void Update()
         {
-            if(!isServer)
+
+            HealthIndicator.SetHealth(_health);
+            if(!isServer || !_nav.enabled)
                 return;
 
             if (ChaseShooterUntil > Time.time)
@@ -101,8 +102,10 @@ namespace Assets.Scripts.AI
         public void HitByBullet(float damage, short owner)
         {
             _health -= damage;
-            SetHealthOnIndicator(_health);
-            ChaseShooter(owner);
+            
+            if(isServer)
+                ChaseShooter(owner);
+            
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
@@ -130,18 +133,15 @@ namespace Assets.Scripts.AI
             _currentState = _patrolState;
             _patrolState.Reset();
             RpcReset();
+
+            StartCoroutine(ResetClient());
+            
         }
 
-        //[ClientRpc]
-        private void SetHealthOnIndicator(float health)
-        {
-            HealthIndicator.SetHealth(health);
-        }
 
         [ClientRpc]
         private void RpcReset()
         {
-            SetHealthOnIndicator(_health);
             StartCoroutine(ResetClient());
         }
 
@@ -150,11 +150,12 @@ namespace Assets.Scripts.AI
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
             yield return new WaitForSeconds(RespawnDelay);
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
             gameObject.GetComponent<BoxCollider>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
-
+            transform.GetChild(1).gameObject.SetActive(true);
+            gameObject.GetComponent<NavMeshAgent>().enabled = isServer;
         }
 
         void InitiateSoundSettings()
