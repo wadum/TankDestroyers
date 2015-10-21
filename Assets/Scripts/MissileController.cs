@@ -56,7 +56,7 @@ namespace Assets.Scripts
             Shoot.Play();
             while (_moving)
             {
-                transform.Translate(direction * missileSpeed);
+                transform.Translate(direction * missileSpeed * Time.deltaTime);
                 yield return null;
             }
         }

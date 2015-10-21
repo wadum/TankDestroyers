@@ -51,7 +51,7 @@ namespace Assets.Scripts
             _moving = true;
             while (_moving)
             {
-                transform.Translate(direction * bulletSpeed);
+                transform.Translate(direction * bulletSpeed * Time.deltaTime);
                 yield return null;
             }
         }
