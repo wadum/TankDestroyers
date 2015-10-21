@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62a7fc0412745c4c862cc254e095e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 2
+  BulletSpeed: 100
 --- !u!114 &11448630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f9f6dd7504f1e4e9443e2e85751d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MissileSpeed: .5
+  MissileSpeed: 25
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -99,11 +99,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: BulletSpeed
-      value: 2
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPlayerAuthority
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MissileSpeed
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
