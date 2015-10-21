@@ -79,6 +79,7 @@ namespace Assets.Scripts
         private Vector3 _spawnPosition;
         private Quaternion _spawnRotation;
         private RoundKeeper _roundKeeper;
+        private bool _die;
 
         void Start()
         {
@@ -252,7 +253,7 @@ namespace Assets.Scripts
             {
                 if (owner != networkId)
                     _roundKeeper.AddScoreTo(owner);
-                Respawn();
+                StartCoroutine(Respawn());
             }
         }
 
@@ -346,17 +347,12 @@ namespace Assets.Scripts
                 enabled = true;
         }
 
-        [ClientRpc]
-        public void RpcRespawn()
-        {
-            CmdTakeDamage(100, 0);
-        }
-
         [Command]
         public void CmdRestartLevel()
         {
             FindObjectOfType<RoundKeeper>().Reset();
-            RpcRespawn();
+            foreach (var player in FindObjectsOfType<PlayerController>())
+                player._health = 0;
             foreach (var enemy in FindObjectsOfType<EnemyMovement>())
                 enemy.Reset();
             foreach (var mine in FindObjectsOfType<MineController>())
