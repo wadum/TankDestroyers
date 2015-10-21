@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using Assets.Scripts.Variables;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -8,6 +10,7 @@ namespace Assets.Scripts.UI
     {
 
         public GameObject ServerButton;
+        private GameObject pc;
 
         public void Done(string scoreText)
         {
@@ -20,14 +23,19 @@ namespace Assets.Scripts.UI
             {
                 cr.SetAlpha(1);
             }
+
+            pc = GameObject.FindGameObjectsWithTag(Constants.Tags.Player).FirstOrDefault(p => p.GetComponent<PlayerController>().isLocalPlayer);
+
+
+
         }
 
         public void OnButtonClick()
         {
 
+            
             Debug.Log("clicked button..!");
-
-            NetworkManager.singleton.ServerChangeScene("game");
+            pc.GetComponent<PlayerController>().CmdRestartLevel();
         }
         
     }
