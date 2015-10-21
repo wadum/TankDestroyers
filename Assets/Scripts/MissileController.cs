@@ -21,8 +21,8 @@ namespace Assets.Scripts
             switch (other.tag)
             {
                 case "Player":
-                    if (other.GetComponent<PlayerController>().HitByBullet(20, Owner))
-                        StartCoroutine(ExplodeMissile());
+                    other.GetComponent<PlayerController>().HitByBullet(20, Owner);
+                    StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
                     other.GetComponent<EnemyMovement>().HitByBullet();
