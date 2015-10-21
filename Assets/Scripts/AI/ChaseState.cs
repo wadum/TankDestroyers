@@ -13,13 +13,9 @@ namespace Assets.Scripts.AI
         public float StopAtDistance = 10f;
 
         private readonly NavMeshAgent _nav;
-        private readonly AudioSource _shotSource;
-        private readonly short _networkId;
 
-        public ChaseState(NavMeshAgent nav, int msBetweenShots, AudioSource shotSource, short networkId)
+        public ChaseState(NavMeshAgent nav)
         {
-            _networkId = networkId;
-            _shotSource = shotSource;
             _nav = nav;
         }
 
@@ -46,8 +42,6 @@ namespace Assets.Scripts.AI
                         (Vector3.Distance(_nav.transform.position, Target.position) - StopAtDistance)/
                         Vector3.Distance(_nav.transform.position, Target.position));
             }
-            //if (FireIfEnemy())
-            //    _nav.enabled = false;
         }
     }
 }
