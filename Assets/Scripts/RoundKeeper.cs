@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,6 +9,8 @@ public class RoundKeeper : NetworkBehaviour
     private float _endTime;
     [SyncVar]
     public long TimeLeft;
+
+    private Dictionary<short, int> Score = new Dictionary<short, int>(); 
 
 
     public override void OnStartServer()
@@ -36,7 +39,12 @@ public class RoundKeeper : NetworkBehaviour
         {
             Debug.LogError("Would this ever happen??!");
         }
-        Debug.Log("Player with id " + playerId + " got a point");
+
+        int val = 0;
+        if (Score.TryGetValue(playerId, out val))
+            Score[playerId] = ++val;
+        else
+            Score[playerId] = 1;
 
     }
 }

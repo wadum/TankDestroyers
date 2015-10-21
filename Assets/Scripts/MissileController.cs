@@ -25,7 +25,7 @@ namespace Assets.Scripts
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Enemy":
-                    other.GetComponent<EnemyMovement>().HitByBullet();
+                    other.GetComponent<EnemyMovement>().HitByBullet(Owner);
                     StartCoroutine(ExplodeMissile());
                     break;
                 case "Wall":

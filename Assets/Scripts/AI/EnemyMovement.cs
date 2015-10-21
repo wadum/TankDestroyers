@@ -23,6 +23,8 @@ namespace Assets.Scripts.AI
         private IState _currentState;
         private AudioSource _shotSource;
         private int _health = 100;
+        private RoundKeeper _roundKeeper;
+
 
         void Start ()
         {
@@ -44,6 +46,7 @@ namespace Assets.Scripts.AI
             _currentState = _patrolState;
 
             GameObject.FindGameObjectsWithTag("Waypoint");
+            _roundKeeper = GameObject.FindObjectOfType<RoundKeeper>();
         }
 
 
@@ -68,11 +71,16 @@ namespace Assets.Scripts.AI
             _currentState = _chaseState;
         }
 
-        public void HitByBullet()
+        public void HitByBullet(short owner)
         {
             _health -= 25;
-            if(_health < 0)
+            if (_health < 0)
+            {
                 Destroy(gameObject);
+                if(isServer)
+                    _roundKeeper.AddScoreTo();
+            }
+            
         }
 
         void InitiateSoundSettings()
