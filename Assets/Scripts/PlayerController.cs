@@ -92,6 +92,7 @@ namespace Assets.Scripts
             //_reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
             _reloadBar =
                 _firstPersonUi.transform.GetComponentsInChildren<RadialSlider>().First(s => s.tag == "ReloadBar");
+            _reloadBar.gameObject.SetActive(false);
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
