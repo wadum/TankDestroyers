@@ -22,7 +22,7 @@ namespace Assets.Scripts.AI
         private PatrolState _patrolState;
         private IState _currentState;
         private AudioSource _shotSource;
-        private int _health = 100;
+        private float _health = 100;
         private RoundKeeper _roundKeeper;
 
 
@@ -71,10 +71,10 @@ namespace Assets.Scripts.AI
             _currentState = _chaseState;
         }
 
-        public void HitByBullet(short owner)
+        public void HitByBullet(float damage, short owner)
         {
-            _health -= 25;
-            if (_health < 0)
+            _health -= damage;
+            if (_health < 1)
             {
                 Destroy(gameObject);
                 if(isServer)

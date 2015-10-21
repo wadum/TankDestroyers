@@ -179,7 +179,7 @@ namespace Assets.Scripts
             NetworkServer.Spawn(mine.gameObject);
         }
 
-        public bool HitByBullet(int damage, short owner)
+        public bool HitByBullet(float damage, short owner)
         {
             if (isLocalPlayer)
                 CmdTakeDamage(damage, owner);
