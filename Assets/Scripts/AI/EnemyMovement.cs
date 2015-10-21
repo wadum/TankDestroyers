@@ -78,9 +78,8 @@ namespace Assets.Scripts.AI
             {
                 Destroy(gameObject);
                 if(isServer)
-                    _roundKeeper.AddScoreTo();
+                    _roundKeeper.AddScoreTo(owner);
             }
-            
         }
 
         void InitiateSoundSettings()
