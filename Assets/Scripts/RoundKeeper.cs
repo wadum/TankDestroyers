@@ -18,13 +18,15 @@ public class RoundKeeper : NetworkBehaviour
     [SyncVar] 
     public string ScoreText;
 
-    private Dictionary<short, int> Score = new Dictionary<short, int>(); 
+    public float GameLength = 10;
+
+    private Dictionary<short, int> _score = new Dictionary<short, int>(); 
 
 
     public override void OnStartServer()
     {
         base.OnStartServer();
-        _endTime = Time.time + 25;
+        Reset();
     }
 
     // Update is called once per frame
@@ -41,13 +43,13 @@ public class RoundKeeper : NetworkBehaviour
 
 
             var sb = new StringBuilder();
-            var scorekeys = Score.Keys.OrderBy(k => -Score[k]);
+            var scorekeys = _score.Keys.OrderBy(k => -_score[k]);
             foreach (var scoreKey in scorekeys)
             {
                var player = players.FirstOrDefault(p => p.GetComponent<NetworkIdentity>().netId.Value == scoreKey);
                 if (player != null)
                 {
-                    sb.AppendFormat("{0} : {1}\n", player.GetComponent<PlayerController>().PlayerName, Score[scoreKey]);
+                    sb.AppendFormat("{0} : {1}\n", player.GetComponent<PlayerController>().PlayerName, _score[scoreKey]);
                 }
             }
             ScoreText = sb.ToString();
@@ -55,6 +57,23 @@ public class RoundKeeper : NetworkBehaviour
 	    }
 
 	}
+
+    public void Reset()
+    {
+        _endTime = Time.time + GameLength;
+        _score = new Dictionary<short, int>();
+        RpcResetHighScore();
+    }
+
+    [ClientRpc]
+    void RpcResetHighScore()
+    {
+        GameObject.FindGameObjectWithTag(Constants.Tags.HighScore).GetComponent<HighScore>().Reset();
+        foreach (var player in GameObject.FindGameObjectsWithTag(Constants.Tags.Player))
+        {
+            player.GetComponent<PlayerController>().EnableMovement();
+        }
+    }
 
     [ClientRpc]
     void RpcShowHightscore()
@@ -74,9 +93,9 @@ public class RoundKeeper : NetworkBehaviour
         }
 
         int val = 0;
-        if (Score.TryGetValue(playerId, out val))
-            Score[playerId] = ++val;
+        if (_score.TryGetValue(playerId, out val))
+            _score[playerId] = ++val;
         else
-            Score[playerId] = 1;
+            _score[playerId] = 1;
     }
 }

@@ -50,6 +50,12 @@ namespace Assets.Scripts.Weapons
             bullet.GetComponent<BulletController>().FireBullet(direction, BulletSpeed, owner);
         }
 
-        
+        [ClientRpc]
+        public void RpcReset()
+        {
+            foreach (var b in _bullets)
+                b.SetActive(false);
+        }
+
     }
 }

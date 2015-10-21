@@ -52,5 +52,11 @@ namespace Assets.Scripts.Weapons
             missile.GetComponent<MissileController>().FireMissile(direction, MissileSpeed, owner);
         }
 
+        [ClientRpc]
+        public void RpcReset()
+        {
+            foreach(var m in _missiles)
+                m.SetActive(false);
+        }
     }
 }
