@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeLeft: 0
   ScoreText: 
-  GameLength: 10
+  GameLength: 300
 --- !u!114 &11446756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,7 +130,7 @@ Prefab:
       objectReference: {fileID: 134086, guid: 7e9a168b395a4a44cb504dde91829c64, type: 2}
     - target: {fileID: 0}
       propertyPath: GameLength
-      value: 10
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
