@@ -906,7 +906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &188846
 GameObject:
   m_ObjectHideFlags: 1
@@ -2503,7 +2503,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -2573,7 +2572,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 5
@@ -2643,7 +2641,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -2713,7 +2710,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -2783,7 +2779,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 10
@@ -2990,7 +2985,6 @@ MonoBehaviour:
   ThirdPerson: {fileID: 152664}
   FirstPersonMode: 0
   DisableControls: 1
-  networkId: 0
 --- !u!114 &11458908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3379,7 +3373,7 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: -.0299999993
     inheritVelocity: 0
-    maxNumParticles: 500
+    maxNumParticles: 2000
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -4367,7 +4361,7 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: -.100000001
     inheritVelocity: 0
-    maxNumParticles: 50
+    maxNumParticles: 2000
   ShapeModule:
     serializedVersion: 2
     enabled: 1
