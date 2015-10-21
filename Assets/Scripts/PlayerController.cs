@@ -229,8 +229,7 @@ namespace Assets.Scripts
 
         public void AddHealth(int amount)
         {
-            _health = Mathf.Min(_health + amount, Health);
-            UpdateHealthIndicators();
+            CmdAddHealth(amount);
         }
 
         private IEnumerator FireMachineGun()
@@ -242,6 +241,12 @@ namespace Assets.Scripts
                 yield return new WaitForSeconds(MachineGunCd);
             }
             MachineGunSound.Stop();
+        }
+
+        [Command]
+        private void CmdAddHealth(float amount)
+        {
+            _health = Mathf.Min(_health + amount, Health);
         }
 
         [Command]
