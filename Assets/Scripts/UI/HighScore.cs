@@ -10,7 +10,7 @@ namespace Assets.Scripts.UI
     {
 
         public GameObject ServerButton;
-        private GameObject pc;
+        private GameObject _pc;
 
         public void Done(string scoreText)
         {
@@ -24,18 +24,25 @@ namespace Assets.Scripts.UI
                 cr.SetAlpha(1);
             }
 
-            pc = GameObject.FindGameObjectsWithTag(Constants.Tags.Player).FirstOrDefault(p => p.GetComponent<PlayerController>().isLocalPlayer);
+            _pc = GameObject.FindGameObjectsWithTag(Constants.Tags.Player).FirstOrDefault(p => p.GetComponent<PlayerController>().isLocalPlayer);
+        }
 
+        public void Reset()
+        {
+            var textComp = transform.FindChild("Text").gameObject;
+            textComp.SetActive(false);
+            ServerButton.SetActive(false);
 
-
+            foreach (var cr in GetComponentsInChildren<CanvasRenderer>())
+            {
+                cr.SetAlpha(0);
+            }
         }
 
         public void OnButtonClick()
         {
-
-            
             Debug.Log("clicked button..!");
-            pc.GetComponent<PlayerController>().CmdRestartLevel();
+            _pc.GetComponent<PlayerController>().CmdRestartLevel();
         }
         
     }

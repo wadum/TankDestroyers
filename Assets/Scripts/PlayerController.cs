@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Assets.Scripts.AI;
 using Assets.Scripts.PickUps;
 using Assets.Scripts.UI;
 using Assets.Scripts.Variables;
@@ -98,6 +99,7 @@ namespace Assets.Scripts
             //_reloadBar = GameObject.FindGameObjectWithTag("ReloadBar").GetComponent<RadialSlider>();
             _reloadBar =
                 _firstPersonUi.transform.GetComponentsInChildren<RadialSlider>().First(s => s.tag == "ReloadBar");
+            _reloadBar.gameObject.SetActive(false);
             _rb = gameObject.GetComponent<Rigidbody>();
             _health = Health;
             _mineAmount = MineStartAmount;
@@ -337,11 +339,31 @@ namespace Assets.Scripts
                 enabled = false;
         }
 
+        public void EnableMovement()
+        {
+            if (isLocalPlayer)
+                enabled = true;
+        }
+
+        [ClientRpc]
+        public void RpcRespawn()
+        {
+            Respawn();
+        }
 
         [Command]
         public void CmdRestartLevel()
         {
-            NetworkManager.singleton.ServerChangeScene("game");
+            FindObjectOfType<RoundKeeper>().Reset();
+            RpcRespawn();
+            foreach (var enemy in FindObjectsOfType<EnemyMovement>())
+                enemy.Reset();
+            foreach (var mine in FindObjectsOfType<MineController>())
+                NetworkServer.Destroy(mine.gameObject);
+            foreach (var mm in FindObjectsOfType<MissileManager>())
+                mm.RpcReset();
+            foreach (var bm in FindObjectsOfType<BulletManager>())
+                bm.RpcReset();
         }
     }
 }

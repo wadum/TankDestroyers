@@ -97,6 +97,11 @@ namespace Assets.Scripts.AI
             if (!(_health < 1)) return;
             if (!isServer) return;
             _roundKeeper.AddScoreTo(owner);
+            Reset();
+        }
+
+        public void Reset()
+        {
             _health = 100;
             transform.rotation = _spawnRot;
             transform.position = _spawnPos;
@@ -114,10 +119,11 @@ namespace Assets.Scripts.AI
         [ClientRpc]
         private void RpcReset()
         {
-            StartCoroutine(Reset());
+            RpcSetHealthOnIndicator(_health);
+            StartCoroutine(ResetClient());
         }
 
-        private IEnumerator Reset()
+        private IEnumerator ResetClient()
         {
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
